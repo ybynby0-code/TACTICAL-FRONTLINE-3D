@@ -732,7 +732,9 @@ function renderFeature(page){
   document.querySelectorAll('.lnav').forEach(b=>b.classList.toggle('on',b.dataset.page===page));
   feature.querySelector('#featureBack').onclick=()=>renderFeature('home');
   feature.querySelector('.featureGrid').onclick=e=>{
-   if(page==='friends'||page==='battlepass'||page==='mastery')return;
+   if(page==='friends'){const b=e.target.closest('button[data-social]');if(b){const i=Number(b.dataset.index);if(b.dataset.social==='remove')social.friends.splice(i,1);else social.party.splice(i,1);saveSocial();renderFriends();}return;}
+   if(page==='battlepass'){const b=e.target.closest('button[data-pass]');if(!b)return;const t=Number(b.dataset.pass),xp=passXP(),tier=Math.min(20,Math.floor(xp/250)),reward=250+(t-1)*25;if(t<1||t>20||tier<t||pass.claimed.includes(t))return;pass.claimed.push(t);credits+=reward;saveEconomy();localStorage.setItem(passKey,JSON.stringify(pass));renderPass();return;}
+   if(page==='mastery'){const b=e.target.closest('button[data-select-weapon]');if(b){selectWeapon(Number(b.dataset.selectWeapon));renderMastery();}return;}
    const op=e.target.closest('button[data-op="claim"]');
    if(op){const m=missionDefs.find(x=>x.id===op.dataset.id);if(!m)return;ensureDaily();if(missionProgress(m)<m.target||daily.claimed.includes(m.id))return;daily.claimed.push(m.id);credits+=m.reward;saveEconomy();saveOps();renderMissions();return;}
    const b=e.target.closest('button[data-feature]');if(!b)return;
