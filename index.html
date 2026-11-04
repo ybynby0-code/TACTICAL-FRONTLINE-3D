@@ -242,6 +242,23 @@ body{font-family:Inter,Arial,sans-serif;background:#111}
  #lobbyTitle{font-size:37px}
 }
 
+
+/* OPERATIONS EXPANSION */
+.opsGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.opsCard{background:linear-gradient(145deg,#132638,#0a1420);border:1px solid #8ab5ca2b;padding:18px;min-width:0}
+.opsCard strong{display:block;font-size:13px;letter-spacing:1px;color:#eaf5fc}
+.opsCard p{min-height:40px;color:#9db2c1;font-size:11px;line-height:1.6}
+.opsValue{font-size:26px;font-weight:900;color:#8deaff;margin:12px 0}
+.opsTrack{height:5px;background:#ffffff17;margin:10px 0 14px;overflow:hidden}
+.opsTrack i{display:block;height:100%;background:#8deaff}
+.opsCard button{width:100%;padding:10px;background:#8deaff;color:#07131e;font-weight:900;border:0}
+.opsCard button:disabled{opacity:.35}
+.opsStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.opsStat{background:#0d1a28;border:1px solid #9fc7d322;padding:13px}
+.opsStat small{display:block;color:#8da5b7;font-size:9px;letter-spacing:1px}
+.opsStat b{display:block;color:#fff;font-size:22px;margin-top:6px}
+@media(max-width:700px){.opsGrid{grid-template-columns:1fr}.opsStats{grid-template-columns:repeat(2,minmax(0,1fr))}.opsCard{padding:14px}.opsCard p{min-height:0}}
+
 </style></head><body><div id="game"></div><div id="hud"><div id="tacticalHud"><div id="mini"><svg viewBox="0 0 160 160"><path d="M15 18H145V145H15Z M15 78H145 M78 18V145 M35 18V55H65V90H15 M100 145V108H145 M78 55H120V18" fill="none" stroke="#b9d4df" stroke-width="7" opacity=".55"/><path d="M80 80L94 94" stroke="#67eaff" stroke-width="3"/><circle cx="80" cy="80" r="5" fill="#6deaff"/><circle cx="43" cy="44" r="4" fill="#f65d78"/><circle cx="120" cy="105" r="4" fill="#f65d78"/></svg></div><div id="squad"><div class="portrait">J</div><div class="portrait">V</div><div class="portrait">S</div><div class="portrait">K</div><div class="portrait">M</div></div><div id="feed"><div class="feedrow">ALLY  ▰  ENEMY</div><div class="feedrow">ALLY  ▰  ENEMY</div></div><div id="chat">[TEAM] JETT: A 지점으로 이동!<br>[TEAM] SAGE: 확인했습니다.<br>[TEAM] PHOENIX: 적 발견!</div><div id="abilities"><div class="abilityTile">◉<small>C</small></div><div class="abilityTile">➤<small>Q</small></div><div class="abilityTile">✦<small>E</small></div><div class="abilityTile">◇<small>X</small></div></div></div><div class="top"><div><div class="brand">TACTICAL FRONTLINE</div><div class="tag">COMBAT SIMULATION // LIVE</div></div><div class="box"><small>ELIMINATIONS</small><b id="kills">0</b></div><div class="box"><small>WAVE</small><b id="wave">1</b></div><div class="box"><small>HOSTILES</small><b id="hostiles">0</b></div></div><div id="notice">SECTOR 07 // SECURE THE AREA</div><div id="cross"></div><div id="bottom"><div class="health"><div class="label">VITALS <b id="hpnum">100</b> / ARMOR <b id="armor">50</b></div><div class="bar"><i id="hpbar"></i></div><div class="label" style="margin-top:7px">ABILITY <b id="energy">100</b>%</div><div class="bar"><i id="energybar" style="background:#b68cff"></i></div></div><div id="ammo"><div id="weaponName">VXR-9 ASSAULT</div><span id="mag">30</span><span style="font-size:14px;color:#89a2b3"> / <span id="reserve">180</span></span><small>MAGAZINE / RESERVE</small></div></div><div id="mobile"><div id="look"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="mb fire" id="fire">FIRE</button><button class="mb dash" id="dash">DASH</button><button class="mb reload" id="reload">RELOAD</button><button class="mb skill" id="skill">SKILL</button></div></div>
 <div id="referenceHUD"><div id="refNet" style="position:absolute;left:16px;top:8px;font-size:13px;font-weight:700;letter-spacing:.2px">FPS: 240&nbsp;&nbsp; 핑: 12ms</div>
 <div id="matchbar"><div class="teamfaces"><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i></div><div class="score">12</div><div class="clock">08:24</div><div class="score red">8</div><div class="teamfaces"><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i></div></div>
@@ -616,13 +633,58 @@ addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updat
   career:{kicker:'PLAYER RECORD',title:'커리어',cards:[['OVERVIEW','레벨 · 승패 · 전투 기록'],['COMPETITIVE','랭크 및 시즌 기록'],['MATCH HISTORY','최근 전투 결과']]},
   settings:{kicker:'SYSTEM CONFIGURATION',title:'설정',cards:[['GRAPHICS','고화질 / 성능 우선 설정'],['AUDIO','효과음 및 인터페이스 사운드'],['CONTROLS','키보드 · 마우스 · 모바일 조작']]}
  };
- function renderFeature(page){
+ 
+ const opsStatsKey='tf_ops_stats_v1',dailyKey='tf_daily_ops_v1';
+ const readJSON=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))||fallback}catch{return fallback}};
+ let opsStats=readJSON(opsStatsKey,{totalKills:0,totalShots:0,matches:0,bestKills:0,bestWave:1});
+ let daily=readJSON(dailyKey,{day:'',kills:0,shots:0,wave:1,claimed:[]});
+ const dayStamp=()=>{const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
+ function ensureDaily(){const d=dayStamp();if(daily.day!==d)daily={day:d,kills:0,shots:0,wave:1,claimed:[]};}
+ function saveOps(){localStorage.setItem(opsStatsKey,JSON.stringify(opsStats));localStorage.setItem(dailyKey,JSON.stringify(daily));}
+ const missionDefs=[
+  {id:'elims',name:'표적 제거',desc:'적 요원 8명을 제거하세요.',target:8,reward:500,field:'kills'},
+  {id:'fire',name:'사격 훈련',desc:'총알 40발을 발사하세요.',target:40,reward:350,field:'shots'},
+  {id:'survive',name:'전선 유지',desc:'웨이브 3에 도달하세요.',target:3,reward:600,field:'wave'}
+ ];
+ function missionProgress(m){return Math.min(m.target,Number(daily[m.field]||0))}
+ function renderMissions(){
+  ensureDaily();
+  feature.querySelector('.featureGrid').className='opsGrid';
+  feature.querySelector('.featureGrid').innerHTML=missionDefs.map(m=>{
+   const value=missionProgress(m),claimed=daily.claimed.includes(m.id),done=value>=m.target;
+   return '<article class="opsCard"><strong>'+m.name+'</strong><p>'+m.desc+'</p><div class="opsValue">'+value+' <small style="font-size:12px;color:#8da5b7">/ '+m.target+'</small></div><div class="opsTrack"><i style="width:'+(value/m.target*100)+'%"></i></div><button data-op="claim" data-id="'+m.id+'" '+(!done||claimed?'disabled':'')+'>'+(claimed?'보상 수령 완료':done?'보상 받기　+'+m.reward+' C':'진행 중')+'</button></article>';
+  }).join('');
+ }
+ function renderCareer(){
+  const xp=opsStats.totalKills*10+opsStats.matches*25;
+  const level=Math.floor(xp/500)+1,into=xp%500;
+  const rank=level>=30?'ELITE':level>=20?'DIAMOND':level>=12?'PLATINUM':level>=6?'GOLD':'ROOKIE';
+  feature.querySelector('.featureGrid').className='';
+  feature.querySelector('.featureGrid').innerHTML='<div class="opsStats"><div class="opsStat"><small>PLAYER LEVEL</small><b>'+level+'</b></div><div class="opsStat"><small>RANK TIER</small><b>'+rank+'</b></div><div class="opsStat"><small>TOTAL ELIMINATIONS</small><b>'+opsStats.totalKills+'</b></div><div class="opsStat"><small>MATCHES DEPLOYED</small><b>'+opsStats.matches+'</b></div></div><div class="opsCard"><strong>계정 진행도</strong><p>제거 1회당 10 XP · 전투 시작 1회당 25 XP</p><div class="opsValue">'+into+' <small style="font-size:12px;color:#8da5b7">/ 500 XP</small></div><div class="opsTrack"><i style="width:'+(into/5)+'%"></i></div></div><div class="opsStats" style="margin-top:12px"><div class="opsStat"><small>TOTAL SHOTS</small><b>'+opsStats.totalShots+'</b></div><div class="opsStat"><small>BEST ELIMS / MATCH</small><b>'+opsStats.bestKills+'</b></div><div class="opsStat"><small>BEST WAVE</small><b>'+opsStats.bestWave+'</b></div><div class="opsStat"><small>NEXT LEVEL</small><b>'+(500-into)+' XP</b></div></div>';
+ }
+ let prevKills=kills,prevAmmo=ammo+reserve,prevWave=wave,wasActive=active;
+ setInterval(()=>{
+  ensureDaily();
+  if(kills<prevKills)prevKills=0;
+  if(kills>prevKills){const diff=kills-prevKills;opsStats.totalKills+=diff;daily.kills+=diff;opsStats.bestKills=Math.max(opsStats.bestKills,kills);prevKills=kills;saveOps();}
+  const totalAmmo=ammo+reserve;
+  if(totalAmmo<prevAmmo){const diff=prevAmmo-totalAmmo;opsStats.totalShots+=diff;daily.shots+=diff;prevAmmo=totalAmmo;saveOps();}
+  else if(totalAmmo>prevAmmo)prevAmmo=totalAmmo;
+  if(wave!==prevWave){daily.wave=Math.max(daily.wave,wave);opsStats.bestWave=Math.max(opsStats.bestWave,wave);prevWave=wave;saveOps();}
+  if(active&&!wasActive){opsStats.matches++;saveOps();}
+  wasActive=active;
+ },350);
+
+function renderFeature(page){
   const p=pages[page];if(!p)return;
   home.style.display='none';document.getElementById('storePanel').style.display='none';feature.style.display='block';
   feature.innerHTML='<div class="featureHead"><div><div id="lobbyKicker">'+p.kicker+'</div><h2>'+p.title+'</h2></div><button id="featureBack">←　로비</button></div><div class="featureGrid">'+p.cards.map((c,i)=>'<article class="featureCard '+(page==='agents'&&i===0?'active':'')+'"><strong>'+c[0]+'</strong><p>'+c[1]+'</p><button data-feature="'+page+'" data-index="'+i+'">'+(page==='agents'?'선택하기':'상세 보기')+'</button></article>').join('')+'</div>';
+  if(page==='missions')renderMissions();if(page==='career')renderCareer();
   document.querySelectorAll('.lnav').forEach(b=>b.classList.toggle('on',b.dataset.page===page));
   feature.querySelector('#featureBack').onclick=()=>renderFeature('home');
   feature.querySelector('.featureGrid').onclick=e=>{
+   const op=e.target.closest('button[data-op="claim"]');
+   if(op){const m=missionDefs.find(x=>x.id===op.dataset.id);if(!m)return;ensureDaily();if(missionProgress(m)<m.target||daily.claimed.includes(m.id))return;daily.claimed.push(m.id);credits+=m.reward;saveEconomy();saveOps();renderMissions();return;}
    const b=e.target.closest('button[data-feature]');if(!b)return;
    if(page==='agents'){feature.querySelectorAll('.featureCard').forEach((c,i)=>c.classList.toggle('active',i===Number(b.dataset.index)));b.textContent='선택됨';}
    else {
