@@ -259,6 +259,21 @@ body{font-family:Inter,Arial,sans-serif;background:#111}
 .opsStat b{display:block;color:#fff;font-size:22px;margin-top:6px}
 @media(max-width:700px){.opsGrid{grid-template-columns:1fr}.opsStats{grid-template-columns:repeat(2,minmax(0,1fr))}.opsCard{padding:14px}.opsCard p{min-height:0}}
 
+
+/* SEASON / SOCIAL / MASTERY SYSTEMS */
+.opsForm{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
+.opsForm input{flex:1;min-width:150px;background:#081521;border:1px solid #6e94a755;color:#fff;padding:12px}
+.opsForm button,.opsAction{background:#8deaff;color:#07131e;border:0;padding:11px 14px;font-weight:900}
+.opsRow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px;background:#0b1926;border:1px solid #8ab5ca25;margin:7px 0}
+.opsRow small{display:block;color:#91a8b8;margin-top:4px}
+.opsRow button{padding:8px 10px;background:#263d50;color:#fff;border:1px solid #8ab5ca55}
+.opsPill{display:inline-block;padding:4px 7px;background:#143044;color:#8deaff;font-size:9px;letter-spacing:1px}
+.opsPass{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.opsTier{background:#0d1a28;border:1px solid #9fc7d322;padding:12px;text-align:center}
+.opsTier b{display:block;font-size:18px;margin:8px 0;color:#8deaff}
+.opsTier button{width:100%;padding:8px 3px;font-size:10px}
+@media(max-width:700px){.opsPass{grid-template-columns:repeat(2,minmax(0,1fr))}.opsForm button{flex:1}}
+
 </style></head><body><div id="game"></div><div id="hud"><div id="tacticalHud"><div id="mini"><svg viewBox="0 0 160 160"><path d="M15 18H145V145H15Z M15 78H145 M78 18V145 M35 18V55H65V90H15 M100 145V108H145 M78 55H120V18" fill="none" stroke="#b9d4df" stroke-width="7" opacity=".55"/><path d="M80 80L94 94" stroke="#67eaff" stroke-width="3"/><circle cx="80" cy="80" r="5" fill="#6deaff"/><circle cx="43" cy="44" r="4" fill="#f65d78"/><circle cx="120" cy="105" r="4" fill="#f65d78"/></svg></div><div id="squad"><div class="portrait">J</div><div class="portrait">V</div><div class="portrait">S</div><div class="portrait">K</div><div class="portrait">M</div></div><div id="feed"><div class="feedrow">ALLY  ▰  ENEMY</div><div class="feedrow">ALLY  ▰  ENEMY</div></div><div id="chat">[TEAM] JETT: A 지점으로 이동!<br>[TEAM] SAGE: 확인했습니다.<br>[TEAM] PHOENIX: 적 발견!</div><div id="abilities"><div class="abilityTile">◉<small>C</small></div><div class="abilityTile">➤<small>Q</small></div><div class="abilityTile">✦<small>E</small></div><div class="abilityTile">◇<small>X</small></div></div></div><div class="top"><div><div class="brand">TACTICAL FRONTLINE</div><div class="tag">COMBAT SIMULATION // LIVE</div></div><div class="box"><small>ELIMINATIONS</small><b id="kills">0</b></div><div class="box"><small>WAVE</small><b id="wave">1</b></div><div class="box"><small>HOSTILES</small><b id="hostiles">0</b></div></div><div id="notice">SECTOR 07 // SECURE THE AREA</div><div id="cross"></div><div id="bottom"><div class="health"><div class="label">VITALS <b id="hpnum">100</b> / ARMOR <b id="armor">50</b></div><div class="bar"><i id="hpbar"></i></div><div class="label" style="margin-top:7px">ABILITY <b id="energy">100</b>%</div><div class="bar"><i id="energybar" style="background:#b68cff"></i></div></div><div id="ammo"><div id="weaponName">VXR-9 ASSAULT</div><span id="mag">30</span><span style="font-size:14px;color:#89a2b3"> / <span id="reserve">180</span></span><small>MAGAZINE / RESERVE</small></div></div><div id="mobile"><div id="look"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="mb fire" id="fire">FIRE</button><button class="mb dash" id="dash">DASH</button><button class="mb reload" id="reload">RELOAD</button><button class="mb skill" id="skill">SKILL</button></div></div>
 <div id="referenceHUD"><div id="refNet" style="position:absolute;left:16px;top:8px;font-size:13px;font-weight:700;letter-spacing:.2px">FPS: 240&nbsp;&nbsp; 핑: 12ms</div>
 <div id="matchbar"><div class="teamfaces"><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i></div><div class="score">12</div><div class="clock">08:24</div><div class="score red">8</div><div class="teamfaces"><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i></div></div>
@@ -555,7 +570,7 @@ function damage(amount){let a=Math.min(player.armor,amount*.65);player.armor-=a;
 function reload(){if(reloading||ammo===weapons[wi].mag||reserve<=0)return;reloading=true;reloadAt=performance.now()+weapons[wi].reload*1000;setNotice('RELOADING');beep(260,.08)}
 function finishReload(){let w=weapons[wi],n=Math.min(w.mag-ammo,reserve);ammo+=n;reserve-=n;reloading=false;hud();setNotice('SECTOR SECURE — ENGAGE')}
 const ray=new THREE.Raycaster(),center=new THREE.Vector2(0,0);
-function shoot(){if(!active||reloading||performance.now()-shotAt<weapons[wi].rate)return;if(ammo<=0){reload();return}shotAt=performance.now();ammo--;recoil=Math.min(recoil+.11,.28);muzzle.material.opacity=1;muzzleLight.intensity=12;setTimeout(()=>{muzzle.material.opacity=0;muzzleLight.intensity=0},65);beep(wi===2?95:wi===1?150:125,.055,'sawtooth',.025);ray.setFromCamera(center,camera);ray.far=90;const targets=bots.filter(b=>b.userData.alive);const hits=ray.intersectObjects(targets,true);if(hits.length){let o=hits[0].object;while(o.parent&&!o.userData.max)o=o.parent;if(o.userData.max){let head=hits[0].point.y-o.position.y>1.55,damageValue=weapons[wi].damage*(head?2:1);o.userData.hp-=damageValue;o.userData.stun=.15;$('#cross').classList.add('hit');setTimeout(()=>$('#cross').classList.remove('hit'),90);if(o.userData.hp<=0){o.userData.alive=false;o.visible=false;kills++;beep(650,.09,'triangle');setNotice(head?'HEADSHOT // TARGET DOWN':'TARGET ELIMINATED');hud()}}}hud()}
+function shoot(){if(!active||reloading||performance.now()-shotAt<weapons[wi].rate)return;if(ammo<=0){reload();return}shotAt=performance.now();ammo--;if(typeof mastery!=='undefined'){mastery.shots[wi]=(mastery.shots[wi]||0)+1;saveMastery()}recoil=Math.min(recoil+.11,.28);muzzle.material.opacity=1;muzzleLight.intensity=12;setTimeout(()=>{muzzle.material.opacity=0;muzzleLight.intensity=0},65);beep(wi===2?95:wi===1?150:125,.055,'sawtooth',.025);ray.setFromCamera(center,camera);ray.far=90;const targets=bots.filter(b=>b.userData.alive);const hits=ray.intersectObjects(targets,true);if(hits.length){let o=hits[0].object;while(o.parent&&!o.userData.max)o=o.parent;if(o.userData.max){let head=hits[0].point.y-o.position.y>1.55,damageValue=weapons[wi].damage*(head?2:1);o.userData.hp-=damageValue;o.userData.stun=.15;$('#cross').classList.add('hit');setTimeout(()=>$('#cross').classList.remove('hit'),90);if(o.userData.hp<=0){o.userData.alive=false;o.visible=false;kills++;if(typeof mastery!=='undefined'){mastery.kills[wi]=(mastery.kills[wi]||0)+1;saveMastery()}beep(650,.09,'triangle');setNotice(head?'HEADSHOT // TARGET DOWN':'TARGET ELIMINATED');hud()}}}hud()}
 function ability(){if(!active||player.energy<35)return;player.energy-=35;const forward=new THREE.Vector3(Math.sin(player.yaw),0,-Math.cos(player.yaw));player.pos.addScaledVector(forward,hero==='scout'?8:5);player.pos.x=THREE.MathUtils.clamp(player.pos.x,-25,25);player.pos.z=THREE.MathUtils.clamp(player.pos.z,-25,25);if(hero==='heavy'){player.armor=Math.min(100,player.armor+30)}else if(hero==='assault'){bots.forEach(b=>{if(b.userData.alive&&b.position.distanceTo(player.pos)<7){b.userData.hp-=35;if(b.userData.hp<=0){b.userData.alive=false;b.visible=false;kills++}}})}else{player.hp=Math.min(100,player.hp+18)}hud();setNotice(hero.toUpperCase()+' ABILITY ACTIVATED');beep(520,.15,'sine')}
 function deploy(){active=true;$('#start').style.display='none';player.hero=hero;player.speed=hero==='scout'?9:hero==='heavy'?5.6:7;player.hp=hero==='heavy'?130:100;player.armor=hero==='heavy'?80:50;player.pos.set(0,0,15);player.yaw=0;player.pitch=0;allies.forEach((a,i)=>{const spots=[[-5.2,0,6.2],[-2.1,0,-1.8],[2.8,0,-8.5]];a.position.set(spots[i][0],spots[i][1],spots[i][2]);a.rotation.y=Math.PI+([-.12,.04,.12][i]);a.visible=true});kills=0;wave=1;bots.splice(0).forEach(b=>scene.remove(b));ammo=weapons[wi].mag;reserve=weapons[wi].res;hud();spawnWave();if(matchMedia('(pointer:fine)').matches)renderer.domElement.requestPointerLock?.();beep(440,.1,'triangle')}
 $('#play').onclick=deploy;$('#heroes').onclick=e=>{let b=e.target.closest('button[data-hero]');if(!b)return;hero=b.dataset.hero;$('#heroes').querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b))};$('#modes').onclick=e=>{let b=e.target.closest('button[data-mode]');if(!b)return;mode=b.dataset.mode;$('#modes').querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b))};
@@ -631,10 +646,44 @@ addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updat
   agents:{kicker:'OPERATIVE ROSTER',title:'요원 선택',cards:[['ASSAULT','전방 교전과 진입에 특화된 공격 요원.'],['SCOUT','기동력과 정보 수집에 특화된 정찰 요원.'],['HEAVY','방어력과 생존 능력을 갖춘 중장갑 요원.']]},
   missions:{kicker:'ACTIVE OPERATIONS',title:'임무',cards:[['DAILY CONTRACT','일일 임무 슬롯 · 보상 시스템 준비'],['WEEKLY CONTRACT','주간 목표 · 누적 진행도'],['FIELD TRAINING','전투 훈련 및 숙련도 과제']]},
   career:{kicker:'PLAYER RECORD',title:'커리어',cards:[['OVERVIEW','레벨 · 승패 · 전투 기록'],['COMPETITIVE','랭크 및 시즌 기록'],['MATCH HISTORY','최근 전투 결과']]},
-  settings:{kicker:'SYSTEM CONFIGURATION',title:'설정',cards:[['GRAPHICS','고화질 / 성능 우선 설정'],['AUDIO','효과음 및 인터페이스 사운드'],['CONTROLS','키보드 · 마우스 · 모바일 조작']]}
+  settings:{kicker:'SYSTEM CONFIGURATION',title:'설정',cards:[['GRAPHICS','고화질 / 성능 우선 설정'],['AUDIO','효과음 및 인터페이스 사운드'],['CONTROLS','키보드 · 마우스 · 모바일 조작']]},
+  friends:{kicker:'SOCIAL NETWORK',title:'친구 및 파티',cards:[['FRIENDS','친구 목록과 친구 추가'],['PARTY','파티 구성 및 초대 코드']]},
+  battlepass:{kicker:'SEASON REWARDS',title:'시즌 패스',cards:[['FREE TRACK','전투 XP로 보상 티어 해금'],['SEASON STATUS','현재 시즌 진행도']]},
+  mastery:{kicker:'WEAPON PROGRAM',title:'무기 숙련도',cards:[['VXR-9 ASSAULT','사용 횟수와 숙련도'],['K-12 BURST','사용 횟수와 숙련도'],['M-88 MARKSMAN','사용 횟수와 숙련도']]}
  };
  
  const opsStatsKey='tf_ops_stats_v1',dailyKey='tf_daily_ops_v1';
+ const socialKey='tf_social_v1',masteryKey='tf_mastery_v1',passKey='tf_pass_v1';
+ let social=readJSON(socialKey,{friends:[],party:[],code:''});
+ let mastery=readJSON(masteryKey,{shots:[0,0,0],kills:[0,0,0]});
+ let pass=readJSON(passKey,{claimed:[]});
+ function saveSocial(){localStorage.setItem(socialKey,JSON.stringify(social))}
+ function saveMastery(){localStorage.setItem(masteryKey,JSON.stringify(mastery))}
+ function passXP(){return opsStats.totalKills*10+opsStats.matches*25}
+ function renderFriends(){
+  const grid=feature.querySelector('.featureGrid');grid.className='';
+  const friendRows=social.friends.map((name,i)=>'<div class="opsRow"><div><b>'+escapeHTML(name)+'</b><small>로컬 친구 목록 · 온라인 상태 미연결</small></div><button data-social="remove" data-index="'+i+'">삭제</button></div>').join('');
+  const partyRows=social.party.map((name,i)=>'<div class="opsRow"><div><b>'+escapeHTML(name)+'</b><small>현재 기기에서 저장된 파티 구성원</small></div><button data-social="kick" data-index="'+i+'">제외</button></div>').join('');
+  grid.innerHTML='<section class="opsCard"><strong>친구 추가</strong><p>닉네임을 저장해 친구 목록을 관리합니다. 다른 사용자와 실시간 연결되지는 않습니다.</p><form class="opsForm" id="friendForm"><input id="friendName" maxlength="16" minlength="2" placeholder="친구 닉네임 (2~16자)" required><button>친구 추가</button></form><div>'+ (friendRows||'<p>친구가 없습니다.</p>')+'</div></section><section class="opsCard" style="margin-top:12px"><strong>파티 관리</strong><p>현재 기기에서 파티 목록과 초대 코드를 관리합니다.</p><div class="opsForm"><button id="partyAdd">내 닉네임 파티에 추가</button><button id="partyCode">초대 코드 생성 / 복사</button></div><div class="opsPill">'+(social.code||'초대 코드 없음')+'</div><div>'+(partyRows||'<p>파티원이 없습니다.</p>')+'</div></section>';
+  grid.querySelector('#friendForm').onsubmit=e=>{e.preventDefault();const name=grid.querySelector('#friendName').value.trim();if(name.length<2||name.length>16||/[<>]/.test(name))return;if(name===playerNickname||social.friends.includes(name)){alert('이미 등록된 닉네임입니다.');return;}social.friends.push(name);saveSocial();renderFriends();};
+  grid.querySelector('#partyAdd').onclick=()=>{if(!social.party.includes(playerNickname))social.party.push(playerNickname);saveSocial();renderFriends();};
+  grid.querySelector('#partyCode').onclick=async()=>{social.code='TF-'+Math.random().toString(36).slice(2,8).toUpperCase();saveSocial();renderFriends();try{await navigator.clipboard.writeText(social.code);alert('초대 코드가 복사되었습니다. 이 코드는 아직 서버 초대 기능과 연결되지 않은 로컬 코드입니다.')}catch{alert('초대 코드: '+social.code)}};
+  grid.onclick=e=>{const b=e.target.closest('button[data-social]');if(!b)return;const i=Number(b.dataset.index);if(b.dataset.social==='remove')social.friends.splice(i,1);else social.party.splice(i,1);saveSocial();renderFriends();};
+ }
+ function renderPass(){
+  const grid=feature.querySelector('.featureGrid'),xp=passXP(),tier=Math.min(20,Math.floor(xp/250));
+  const rewards=Array.from({length:20},(_,i)=>({tier:i+1,credits:250+i*25}));
+  grid.className='';
+  grid.innerHTML='<div class="opsCard"><strong>SEASON 01 · FREE REWARD TRACK</strong><p>전투 XP 250마다 패스 티어가 1단계 상승합니다. 유료 결제는 없습니다.</p><div class="opsValue">TIER '+tier+' / 20</div><div class="opsTrack"><i style="width:'+(tier/20*100)+'%"></i></div><p>누적 XP: '+xp+' · 다음 티어까지 '+(tier>=20?0:250-(xp%250))+' XP</p></div><div class="opsPass" style="margin-top:12px">'+rewards.map(r=>{const unlocked=tier>=r.tier,claimed=pass.claimed.includes(r.tier);return '<article class="opsTier"><span class="opsPill">TIER '+r.tier+'</span><b>◈ '+r.credits+'</b><small>크레딧 보상</small><button data-pass="'+r.tier+'" '+(!unlocked||claimed?'disabled':'')+'>'+(claimed?'수령 완료':unlocked?'받기':'잠김')+'</button></article>'}).join('')+'</div>';
+  grid.onclick=e=>{const b=e.target.closest('button[data-pass]');if(!b)return;const t=Number(b.dataset.pass),reward=rewards[t-1];if(!reward||tier<t||pass.claimed.includes(t))return;pass.claimed.push(t);credits+=reward.credits;saveEconomy();localStorage.setItem(passKey,JSON.stringify(pass));renderPass();};
+ }
+ function renderMastery(){
+  const grid=feature.querySelector('.featureGrid');grid.className='opsGrid';
+  grid.innerHTML=weapons.map((w,i)=>{const shots=mastery.shots[i]||0,k=mastery.kills[i]||0,level=Math.min(10,Math.floor(shots/50)),progress=shots%50;return '<article class="opsCard"><strong>'+w.name+'</strong><p>무기 사용으로 숙련도 경험치를 획득합니다.</p><div class="opsValue">LEVEL '+level+' / 10</div><div class="opsTrack"><i style="width:'+(level>=10?100:progress*2)+'%"></i></div><p>발사: '+shots+' · 제거: '+k+'<br>다음 레벨까지: '+(level>=10?0:50-progress)+' 발</p><button data-select-weapon="'+i+'">'+(wi===i?'현재 장착 중':'이 무기 선택')+'</button></article>'}).join('');
+  grid.onclick=e=>{const b=e.target.closest('button[data-select-weapon]');if(!b)return;selectWeapon(Number(b.dataset.selectWeapon));renderMastery();};
+ }
+ function escapeHTML(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
  const readJSON=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))||fallback}catch{return fallback}};
  let opsStats=readJSON(opsStatsKey,{totalKills:0,totalShots:0,matches:0,bestKills:0,bestWave:1});
  let daily=readJSON(dailyKey,{day:'',kills:0,shots:0,wave:1,claimed:[]});
@@ -679,10 +728,11 @@ function renderFeature(page){
   const p=pages[page];if(!p)return;
   home.style.display='none';document.getElementById('storePanel').style.display='none';feature.style.display='block';
   feature.innerHTML='<div class="featureHead"><div><div id="lobbyKicker">'+p.kicker+'</div><h2>'+p.title+'</h2></div><button id="featureBack">←　로비</button></div><div class="featureGrid">'+p.cards.map((c,i)=>'<article class="featureCard '+(page==='agents'&&i===0?'active':'')+'"><strong>'+c[0]+'</strong><p>'+c[1]+'</p><button data-feature="'+page+'" data-index="'+i+'">'+(page==='agents'?'선택하기':'상세 보기')+'</button></article>').join('')+'</div>';
-  if(page==='missions')renderMissions();if(page==='career')renderCareer();
+  if(page==='missions')renderMissions();if(page==='career')renderCareer();if(page==='friends')renderFriends();if(page==='battlepass')renderPass();if(page==='mastery')renderMastery();
   document.querySelectorAll('.lnav').forEach(b=>b.classList.toggle('on',b.dataset.page===page));
   feature.querySelector('#featureBack').onclick=()=>renderFeature('home');
   feature.querySelector('.featureGrid').onclick=e=>{
+   if(page==='friends'||page==='battlepass'||page==='mastery')return;
    const op=e.target.closest('button[data-op="claim"]');
    if(op){const m=missionDefs.find(x=>x.id===op.dataset.id);if(!m)return;ensureDaily();if(missionProgress(m)<m.target||daily.claimed.includes(m.id))return;daily.claimed.push(m.id);credits+=m.reward;saveEconomy();saveOps();renderMissions();return;}
    const b=e.target.closest('button[data-feature]');if(!b)return;
