@@ -36,7 +36,7 @@ body{font-family:Inter,Arial,sans-serif;background:#111}
 /* REFERENCE MATCH: tactical FPS composition */
 #hud>.top{display:none!important}
 #referenceHUD{position:fixed;inset:0;pointer-events:none;color:#f5f8ff;text-shadow:0 1px 4px #111}
-#matchbar{position:absolute;top:20px;left:50%;transform:translateX(-50%);height:52px;display:flex;align-items:center;gap:9px}
+#refNet{font-variant-numeric:tabular-nums}#matchbar{position:absolute;top:20px;left:50%;transform:translateX(-50%);height:52px;display:flex;align-items:center;gap:9px}
 .teamfaces{display:flex;gap:5px;align-items:center}
 .face{width:39px;height:43px;background:linear-gradient(145deg,#a9c5d5,#263b50 55%,#111d2b);border-bottom:4px solid #dce9f3;clip-path:polygon(12% 0,88% 0,100% 20%,90% 100%,10% 100%,0 20%);position:relative}
 .face:before{content:"";position:absolute;width:18px;height:22px;left:10px;top:5px;border-radius:48% 48% 42% 42%;background:linear-gradient(120deg,#e5c6ac,#6e8293)}
@@ -77,7 +77,7 @@ body{font-family:Inter,Arial,sans-serif;background:#111}
  #refAmmo{right:17%;bottom:10px;font-size:23px}#refMoney{right:8px;bottom:8px;font-size:11px}
  #refChat{display:none}
 }</style></head><body><div id="game"></div><div id="hud"><div id="tacticalHud"><div id="mini"><svg viewBox="0 0 160 160"><path d="M15 18H145V145H15Z M15 78H145 M78 18V145 M35 18V55H65V90H15 M100 145V108H145 M78 55H120V18" fill="none" stroke="#b9d4df" stroke-width="7" opacity=".55"/><path d="M80 80L94 94" stroke="#67eaff" stroke-width="3"/><circle cx="80" cy="80" r="5" fill="#6deaff"/><circle cx="43" cy="44" r="4" fill="#f65d78"/><circle cx="120" cy="105" r="4" fill="#f65d78"/></svg></div><div id="squad"><div class="portrait">J</div><div class="portrait">V</div><div class="portrait">S</div><div class="portrait">K</div><div class="portrait">M</div></div><div id="feed"><div class="feedrow">ALLY  ▰  ENEMY</div><div class="feedrow">ALLY  ▰  ENEMY</div></div><div id="chat">[TEAM] JETT: A 지점으로 이동!<br>[TEAM] SAGE: 확인했습니다.<br>[TEAM] PHOENIX: 적 발견!</div><div id="abilities"><div class="abilityTile">◉<small>C</small></div><div class="abilityTile">➤<small>Q</small></div><div class="abilityTile">✦<small>E</small></div><div class="abilityTile">◇<small>X</small></div></div></div><div class="top"><div><div class="brand">TACTICAL FRONTLINE</div><div class="tag">COMBAT SIMULATION // LIVE</div></div><div class="box"><small>ELIMINATIONS</small><b id="kills">0</b></div><div class="box"><small>WAVE</small><b id="wave">1</b></div><div class="box"><small>HOSTILES</small><b id="hostiles">0</b></div></div><div id="notice">SECTOR 07 // SECURE THE AREA</div><div id="cross"></div><div id="bottom"><div class="health"><div class="label">VITALS <b id="hpnum">100</b> / ARMOR <b id="armor">50</b></div><div class="bar"><i id="hpbar"></i></div><div class="label" style="margin-top:7px">ABILITY <b id="energy">100</b>%</div><div class="bar"><i id="energybar" style="background:#b68cff"></i></div></div><div id="ammo"><div id="weaponName">VXR-9 ASSAULT</div><span id="mag">30</span><span style="font-size:14px;color:#89a2b3"> / <span id="reserve">180</span></span><small>MAGAZINE / RESERVE</small></div></div><div id="mobile"><div id="look"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="mb fire" id="fire">FIRE</button><button class="mb dash" id="dash">DASH</button><button class="mb reload" id="reload">RELOAD</button><button class="mb skill" id="skill">SKILL</button></div></div>
-<div id="referenceHUD">
+<div id="referenceHUD"><div id="refNet" style="position:absolute;left:16px;top:8px;font-size:13px;font-weight:700;letter-spacing:.2px">FPS: 240&nbsp;&nbsp; 핑: 12ms</div>
 <div id="matchbar"><div class="teamfaces"><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i></div><div class="score">12</div><div class="clock">08:24</div><div class="score red">8</div><div class="teamfaces"><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i></div></div>
 <div id="refFeed"><div class="refkill"><span>신신우</span><b class="weapon">▰➜</b><span>레이나</span></div><div class="refkill"><span>제트</span><b class="weapon">▰➜</b><span>소바</span></div><div class="refkill"><span>레이즈</span><b class="weapon">▰➜</b><span>브림스톤</span></div><div class="refkill"><span>오멘</span><b class="weapon">▰➜</b><span>제트</span></div></div>
 <div id="refChat">[팀] 신신우: A로 가자!<br>[팀] 레이즈: 알겠어!<br>[팀] 제트: 적 발견!</div>
@@ -175,6 +175,49 @@ for(let x of [-16,-8,8,16]){box(x,5,-31,1.1,10,1.1,stoneLight);box(x,10,-31,3,.3
 // additional low cover and marked tactical lanes
 for(let x of [-12,-6,6,12]){box(x,.8,-2,3.4,1.6,2.4,wood);box(x,1.65,-2,3.6,.16,2.6,stoneLight)}
 
+
+// REFERENCE MATCH PASS 2 — architectural silhouettes, readable A-site signage and skyline detail.
+const refStoneTrim=mat(0xc7b49b,.72,.12),refDarkStone=mat(0x62584e,.9),refMetal=mat(0x35414b,.36,.72);
+function refPillar(x,y,z,h=8){box(x,y+h/2,z,.48,h,.48,refStoneTrim);box(x,y+h,z,.9,.28,.9,stoneLight);box(x,y+.18,z,.82,.22,.82,refDarkStone)}
+// Right-side A-site wall: large painted directional marker facing the playable courtyard.
+{
+ const c=document.createElement('canvas');c.width=512;c.height=512;const g=c.getContext('2d');
+ g.clearRect(0,0,512,512);g.fillStyle='rgba(225,220,207,.72)';g.font='bold 330px Arial';g.textAlign='center';g.textBaseline='middle';g.fillText('A',205,260);
+ g.beginPath();g.moveTo(350,205);g.lineTo(455,256);g.lineTo(350,307);g.lineTo(350,270);g.lineTo(300,270);g.lineTo(300,242);g.lineTo(350,242);g.closePath();g.fill();
+ const tex=new THREE.CanvasTexture(c);tex.colorSpace=THREE.SRGBColorSpace;
+ const sign=mesh(new THREE.PlaneGeometry(8,6),new THREE.MeshBasicMaterial({map:tex,transparent:true,depthWrite:false}),28.35,5.4,-1.5);sign.rotation.y=-Math.PI/2;
+}
+// Layered stone arch rings, inset window frames, cornices and balcony balusters.
+for(let side of [-1,1]){
+ for(let n=0;n<5;n++){
+  const z=-33+n*14;
+  refPillar(side*20,0,z,7.2);
+  box(side*24,8.3,z,8,.34,5.8,refStoneTrim);
+  box(side*24,8.65,z,8.3,.18,6.1,refDarkStone);
+  for(let k=-2;k<=2;k++)box(side*24+k*1.45,9.2,z-2.7,.12,1.15,.12,refStoneTrim);
+  for(let k=-1;k<=1;k++){
+   box(side*27,4.6+k*2.15,z-1.95,.12,1.8,.18,refMetal);
+   box(side*27,4.6+k*2.15,z-1.82,.2,.12,.12,refStoneTrim);
+  }
+ }
+}
+// Central beacon tower: segmented glass shaft, illuminated ribs and a broad floating ring.
+for(let side of [-1,1])for(let k=0;k<4;k++){
+ const rib=box(side*(1.9+k*.16),24,-48,.12,17,.16,mat(0x6d8793,.25,.72));
+}
+for(let y of [18,21,30,34]){box(0,y,-48,7,.28,7,refStoneTrim);box(0,y+.18,-48,5.8,.12,5.8,refMetal)}
+const beaconCore=mesh(new THREE.OctahedronGeometry(1.25,1),new THREE.MeshBasicMaterial({color:0x73eaff}),0,27,-48);
+const beaconLight=new THREE.PointLight(0x63dfff,24,38);beaconLight.position.set(0,27,-48);scene.add(beaconLight);
+// Foreground paving seams and wet-stone highlights to match the reflective courtyard.
+const wetMat=new THREE.MeshPhysicalMaterial({color:0x83939a,roughness:.19,metalness:.18,transparent:true,opacity:.13,clearcoat:1});
+for(let i=0;i<14;i++){const p=mesh(new THREE.PlaneGeometry(1.2+Math.random()*3,.18+Math.random()*.35),wetMat,(Math.random()-.5)*30,.052,Math.random()*25-12);p.rotation.x=-Math.PI/2;p.rotation.z=(Math.random()-.5)*.12}
+// Small wall lamps and stone-mounted brackets along the lane.
+for(let side of [-1,1])for(let z of [-29,-15,1,17]){
+ const bracket=box(side*27,6.5,z,.7,.12,.16,refMetal);
+ const glow=mesh(new THREE.SphereGeometry(.13,12,8),new THREE.MeshBasicMaterial({color:0xffd6a0}),side*27,6.15,z);
+ const lamp=new THREE.PointLight(0xffc58e,1.4,7);lamp.position.copy(glow.position);scene.add(lamp);
+}
+
 // First-person camera and weapon rig: no third-person avatar is rendered.
 const player={pos:new THREE.Vector3(0,0,12),yaw:0,pitch:0,hp:100,armor:50,energy:100,speed:7,hero:'assault'};const rig=new THREE.Group();camera.add(rig);scene.add(camera);
 
@@ -237,7 +280,7 @@ mesh(new THREE.CapsuleGeometry(.105,.19,6,12),glove,.55,-.37,-.88,rig).rotation.
 for(let i=0;i<4;i++)mesh(new THREE.CapsuleGeometry(.024,.11,4,8),glove,.49+i*.038,-.34,-.99,rig).rotation.x=-.85;
 const muzzle=mesh(new THREE.CylinderGeometry(.055,.08,.18,12),new THREE.MeshBasicMaterial({color:0xffd38a,transparent:true,opacity:0}),.34,-.25,-1.88,rig);muzzle.rotation.x=Math.PI/2;
 const muzzleLight=new THREE.PointLight(0xffc78b,0,5);muzzleLight.position.set(.34,-.25,-1.92);rig.add(muzzleLight);
-const allies=[];for(let i=0;i<3;i++){let ally=new THREE.Group();humanModel(ally,'blue',i);ally.position.set(-6+i*4.4,0,5-i*3.4);ally.rotation.y=Math.PI;scene.add(ally);allies.push(ally)}
+const allies=[];for(let i=0;i<3;i++){let ally=new THREE.Group();humanModel(ally,'blue',i);const spots=[[-5.2,0,6.2],[-2.1,0,-1.8],[2.8,0,-8.5]];ally.position.set(spots[i][0],spots[i][1],spots[i][2]);ally.rotation.y=Math.PI;scene.add(ally);allies.push(ally)}
 const weapons=[{name:'VXR-9 ASSAULT',mag:30,res:180,rate:105,damage:34,reload:1.45,spread:.009,auto:true},{name:'K-12 BURST',mag:24,res:144,rate:240,damage:25,reload:1.65,spread:.006,auto:false},{name:'M-88 MARKSMAN',mag:8,res:64,rate:650,damage:95,reload:1.9,spread:.001,auto:false}];let wi=0,ammo=30,reserve=180,reloading=false,reloadAt=0,shotAt=0,trigger=false,recoil=0;
 const bots=[],effects=[],keys={};let wave=1,kills=0,active=false,quality=true,sound=true,mode='survival',hero='assault',lastTime=0,damageFlash=0;let audioCtx;
 function beep(freq=180,d=.06,type='square',vol=.035){if(!sound)return;try{audioCtx??=new AudioContext();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.value=freq;g.gain.value=vol;o.connect(g);g.connect(audioCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+d);o.stop(audioCtx.currentTime+d)}catch{}}
@@ -298,7 +341,7 @@ function finishReload(){let w=weapons[wi],n=Math.min(w.mag-ammo,reserve);ammo+=n
 const ray=new THREE.Raycaster(),center=new THREE.Vector2(0,0);
 function shoot(){if(!active||reloading||performance.now()-shotAt<weapons[wi].rate)return;if(ammo<=0){reload();return}shotAt=performance.now();ammo--;recoil=Math.min(recoil+.11,.28);muzzle.material.opacity=1;muzzleLight.intensity=12;setTimeout(()=>{muzzle.material.opacity=0;muzzleLight.intensity=0},65);beep(wi===2?95:wi===1?150:125,.055,'sawtooth',.025);ray.setFromCamera(center,camera);ray.far=90;const targets=bots.filter(b=>b.userData.alive);const hits=ray.intersectObjects(targets,true);if(hits.length){let o=hits[0].object;while(o.parent&&!o.userData.max)o=o.parent;if(o.userData.max){let head=hits[0].point.y-o.position.y>1.55,damageValue=weapons[wi].damage*(head?2:1);o.userData.hp-=damageValue;o.userData.stun=.15;$('#cross').classList.add('hit');setTimeout(()=>$('#cross').classList.remove('hit'),90);if(o.userData.hp<=0){o.userData.alive=false;o.visible=false;kills++;beep(650,.09,'triangle');setNotice(head?'HEADSHOT // TARGET DOWN':'TARGET ELIMINATED');hud()}}}hud()}
 function ability(){if(!active||player.energy<35)return;player.energy-=35;const forward=new THREE.Vector3(Math.sin(player.yaw),0,-Math.cos(player.yaw));player.pos.addScaledVector(forward,hero==='scout'?8:5);player.pos.x=THREE.MathUtils.clamp(player.pos.x,-25,25);player.pos.z=THREE.MathUtils.clamp(player.pos.z,-25,25);if(hero==='heavy'){player.armor=Math.min(100,player.armor+30)}else if(hero==='assault'){bots.forEach(b=>{if(b.userData.alive&&b.position.distanceTo(player.pos)<7){b.userData.hp-=35;if(b.userData.hp<=0){b.userData.alive=false;b.visible=false;kills++}}})}else{player.hp=Math.min(100,player.hp+18)}hud();setNotice(hero.toUpperCase()+' ABILITY ACTIVATED');beep(520,.15,'sine')}
-function deploy(){active=true;$('#start').style.display='none';player.hero=hero;player.speed=hero==='scout'?9:hero==='heavy'?5.6:7;player.hp=hero==='heavy'?130:100;player.armor=hero==='heavy'?80:50;player.pos.set(0,0,15);player.yaw=0;player.pitch=0;allies.forEach((a,i)=>{a.position.set(-6+i*4.4,0,5-i*3.4);a.visible=true});kills=0;wave=1;bots.splice(0).forEach(b=>scene.remove(b));ammo=weapons[wi].mag;reserve=weapons[wi].res;hud();spawnWave();if(matchMedia('(pointer:fine)').matches)renderer.domElement.requestPointerLock?.();beep(440,.1,'triangle')}
+function deploy(){active=true;$('#start').style.display='none';player.hero=hero;player.speed=hero==='scout'?9:hero==='heavy'?5.6:7;player.hp=hero==='heavy'?130:100;player.armor=hero==='heavy'?80:50;player.pos.set(0,0,15);player.yaw=0;player.pitch=0;allies.forEach((a,i)=>{const spots=[[-5.2,0,6.2],[-2.1,0,-1.8],[2.8,0,-8.5]];a.position.set(spots[i][0],spots[i][1],spots[i][2]);a.rotation.y=Math.PI+([-.12,.04,.12][i]);a.visible=true});kills=0;wave=1;bots.splice(0).forEach(b=>scene.remove(b));ammo=weapons[wi].mag;reserve=weapons[wi].res;hud();spawnWave();if(matchMedia('(pointer:fine)').matches)renderer.domElement.requestPointerLock?.();beep(440,.1,'triangle')}
 $('#play').onclick=deploy;$('#heroes').onclick=e=>{let b=e.target.closest('button[data-hero]');if(!b)return;hero=b.dataset.hero;$('#heroes').querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b))};$('#modes').onclick=e=>{let b=e.target.closest('button[data-mode]');if(!b)return;mode=b.dataset.mode;$('#modes').querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b))};
 $('#quality').onclick=e=>{quality=!quality;renderer.setPixelRatio(Math.min(devicePixelRatio,quality?1.7:1));sun.castShadow=quality;e.target.textContent='GRAPHICS: '+(quality?'HIGH':'PERFORMANCE')};$('#sound').onclick=e=>{sound=!sound;e.target.textContent='SOUND: '+(sound?'ON':'OFF')};
 document.addEventListener('mousemove',e=>{if(active&&document.pointerLockElement===renderer.domElement){player.yaw-=e.movementX*.0021;player.pitch=THREE.MathUtils.clamp(player.pitch-e.movementY*.0017,-1.25,1.15)}});document.addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='KeyR')reload();if(e.code==='KeyQ')ability();if(e.code==='Digit1')selectWeapon(0);if(e.code==='Digit2')selectWeapon(1);if(e.code==='Digit3')selectWeapon(2);if(e.code==='ShiftLeft'&&active){player.energy=Math.max(0,player.energy-15);player.pos.x+=Math.sin(player.yaw)*3;player.pos.z-=Math.cos(player.yaw)*3;hud()}});document.addEventListener('keyup',e=>keys[e.code]=false);renderer.domElement.addEventListener('mousedown',e=>{if(e.button===0){if(active)shoot();else if(matchMedia('(pointer:fine)').matches)deploy()}});renderer.domElement.addEventListener('contextmenu',e=>e.preventDefault());
