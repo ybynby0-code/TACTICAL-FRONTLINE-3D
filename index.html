@@ -275,6 +275,12 @@ body{font-family:Inter,Arial,sans-serif;background:#111}
 @media(max-width:700px){.opsPass{grid-template-columns:repeat(2,minmax(0,1fr))}.opsForm button{flex:1}}
 
 .opsArchiveHead{margin-bottom:12px}.opsArchiveHead input{width:100%;margin-top:12px;background:#091522;border:1px solid #547086;color:#fff;padding:13px;font:inherit;outline:none}.opsArchiveHead input:focus{border-color:#ff6671}.opsPager{justify-content:center;align-items:center;margin:14px 0}.opsPager span{padding:0 10px;color:#aebdca;font-size:11px}.opsTier{min-width:0}.opsTier b{display:block;font-size:12px;margin:8px 0}.opsTier small{line-height:1.5}.opsTier button:disabled{opacity:.5}@media(max-width:700px){.opsPass{grid-template-columns:repeat(2,minmax(0,1fr))}.opsPager button{padding:10px 12px}.opsArchiveHead .opsValue{font-size:22px}}
+
+/* FIX: keep deployment dialog above touch-look overlay */
+#start{z-index:50!important;pointer-events:auto}
+#start .panel{position:relative;z-index:51;pointer-events:auto}
+#start button{position:relative;z-index:52;pointer-events:auto;touch-action:manipulation}
+html.touch-device #mobile{z-index:24}
 /* MOBILE INPUT + FULLSCREEN RECOVERY */
 html,body{height:100%;min-height:100%;overscroll-behavior:none;-webkit-tap-highlight-color:transparent;touch-action:pan-x pan-y}
 html.touch-device,html.touch-device body{height:100dvh;min-height:100dvh;overflow:hidden}
