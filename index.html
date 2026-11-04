@@ -76,7 +76,45 @@ body{font-family:Inter,Arial,sans-serif;background:#111}
  #refHp{font-size:22px}#refSkills{bottom:85px;gap:3px}.refskill{width:35px;height:36px;font-size:17px}
  #refAmmo{right:17%;bottom:10px;font-size:23px}#refMoney{right:8px;bottom:8px;font-size:11px}
  #refChat{display:none}
-}</style></head><body><div id="game"></div><div id="hud"><div id="tacticalHud"><div id="mini"><svg viewBox="0 0 160 160"><path d="M15 18H145V145H15Z M15 78H145 M78 18V145 M35 18V55H65V90H15 M100 145V108H145 M78 55H120V18" fill="none" stroke="#b9d4df" stroke-width="7" opacity=".55"/><path d="M80 80L94 94" stroke="#67eaff" stroke-width="3"/><circle cx="80" cy="80" r="5" fill="#6deaff"/><circle cx="43" cy="44" r="4" fill="#f65d78"/><circle cx="120" cy="105" r="4" fill="#f65d78"/></svg></div><div id="squad"><div class="portrait">J</div><div class="portrait">V</div><div class="portrait">S</div><div class="portrait">K</div><div class="portrait">M</div></div><div id="feed"><div class="feedrow">ALLY  ▰  ENEMY</div><div class="feedrow">ALLY  ▰  ENEMY</div></div><div id="chat">[TEAM] JETT: A 지점으로 이동!<br>[TEAM] SAGE: 확인했습니다.<br>[TEAM] PHOENIX: 적 발견!</div><div id="abilities"><div class="abilityTile">◉<small>C</small></div><div class="abilityTile">➤<small>Q</small></div><div class="abilityTile">✦<small>E</small></div><div class="abilityTile">◇<small>X</small></div></div></div><div class="top"><div><div class="brand">TACTICAL FRONTLINE</div><div class="tag">COMBAT SIMULATION // LIVE</div></div><div class="box"><small>ELIMINATIONS</small><b id="kills">0</b></div><div class="box"><small>WAVE</small><b id="wave">1</b></div><div class="box"><small>HOSTILES</small><b id="hostiles">0</b></div></div><div id="notice">SECTOR 07 // SECURE THE AREA</div><div id="cross"></div><div id="bottom"><div class="health"><div class="label">VITALS <b id="hpnum">100</b> / ARMOR <b id="armor">50</b></div><div class="bar"><i id="hpbar"></i></div><div class="label" style="margin-top:7px">ABILITY <b id="energy">100</b>%</div><div class="bar"><i id="energybar" style="background:#b68cff"></i></div></div><div id="ammo"><div id="weaponName">VXR-9 ASSAULT</div><span id="mag">30</span><span style="font-size:14px;color:#89a2b3"> / <span id="reserve">180</span></span><small>MAGAZINE / RESERVE</small></div></div><div id="mobile"><div id="look"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="mb fire" id="fire">FIRE</button><button class="mb dash" id="dash">DASH</button><button class="mb reload" id="reload">RELOAD</button><button class="mb skill" id="skill">SKILL</button></div></div>
+}
+/* COMMAND HUB / STORE */
+#lobby{position:fixed;inset:0;z-index:30;display:grid;grid-template-columns:250px 1fr;background:radial-gradient(ellipse at 65% 42%,#24445b 0,#101c2b 43%,#070d17 100%);color:#f4f7fb;font-family:Arial,sans-serif}
+#lobby:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#050b13dd 0%,#07111b99 40%,#07111b33 100%),repeating-linear-gradient(0deg,transparent 0 79px,#9ed9ef0b 80px)}
+#lobbyNav{position:relative;z-index:1;background:#07111be8;border-right:1px solid #8ccde533;padding:25px 17px;display:flex;flex-direction:column;gap:9px}
+#lobbyBrand{font-size:17px;font-weight:1000;letter-spacing:2px;color:#8deaff;margin-bottom:22px}#lobbyBrand small{display:block;font-size:8px;color:#8198a9;letter-spacing:3px;margin-top:6px}
+.lnav{width:100%;text-align:left;background:transparent;border:0;border-left:3px solid transparent;color:#9fb4c3;padding:14px 12px;font-size:11px;letter-spacing:2px}
+.lnav.on,.lnav:hover{color:#fff;border-left-color:#8deaff;background:linear-gradient(90deg,#5cc8e522,transparent)}
+#lobbyProfile{margin-top:auto;border-top:1px solid #7895a333;padding-top:16px;font-size:11px;color:#b9c9d4;line-height:1.8}
+#lobbyMain{position:relative;z-index:1;padding:25px clamp(15px,4vw,58px);overflow:auto}
+#lobbyTop{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:10px;letter-spacing:2px;color:#9db4c4}
+#wallet{color:#fff;font-weight:900;font-size:17px;letter-spacing:1px;background:#0b1724cc;padding:12px 16px;border:1px solid #9bcde544}
+#lobbyHome{max-width:950px;margin:clamp(30px,8vh,90px) auto 0}
+#lobbyKicker{font-size:10px;letter-spacing:5px;color:#8deaff;font-weight:bold}
+#lobbyTitle{font-size:clamp(43px,8vw,88px);line-height:.88;letter-spacing:-4px;font-weight:1000;margin:17px 0}
+#lobbyTitle span{color:#8deaff}
+#lobbySub{max-width:520px;color:#9db2c1;font-size:12px;line-height:1.8}
+#lobbyActions{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0}
+#lobbyActions button{min-width:140px;padding:17px 20px;font-size:11px}
+#lobbyPlay{background:#8deaff;color:#06121c;border-color:#8deaff}
+#lobbyCards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:38px}
+.lobbyCard{min-height:105px;background:linear-gradient(135deg,#193149dd,#0a1522dd);border:1px solid #8abbd533;padding:16px}
+.lobbyCard b{display:block;font-size:12px;letter-spacing:2px;margin-bottom:9px}.lobbyCard span{font-size:10px;color:#93aabb;line-height:1.5}
+#storePanel{display:none;max-width:1050px;margin:30px auto}
+#storeHead{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:18px}
+#storeHead h2{font-size:36px;margin:8px 0 0;letter-spacing:-1px}
+#storeTabs{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0}
+#storeTabs button{background:#142638;border-color:#48647b}
+#storeTabs button.on{background:#8deaff;color:#06121c;border-color:#8deaff}
+#storeGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.storeItem{min-height:195px;background:linear-gradient(145deg,#243c53,#101a28 70%);border:1px solid #7293aa55;padding:15px;display:flex;flex-direction:column;justify-content:space-between}
+.itemArt{height:85px;display:grid;place-items:center;font-size:42px;color:#a8efff;text-shadow:0 0 25px #61dfff88;background:radial-gradient(ellipse,#5ac9e522,transparent 70%)}
+.storeItem h3{font-size:13px;margin:7px 0 4px}.storeItem small{color:#94aabb;font-size:9px;letter-spacing:1px}
+.storeItem button{margin-top:12px;width:100%;padding:10px}
+.storeItem button:disabled{opacity:.55;cursor:default}
+#storeNote{font-size:10px;color:#94aabb;line-height:1.7;margin-top:16px}
+#lobbyBack{display:none}
+@media(max-width:700px){#lobby{grid-template-columns:76px 1fr}#lobbyNav{padding:13px 6px;gap:5px}#lobbyBrand{font-size:9px;letter-spacing:0;text-align:center;line-height:1.4;margin:4px 0 15px}#lobbyBrand small{font-size:6px;letter-spacing:0}.lnav{font-size:8px;letter-spacing:0;text-align:center;padding:12px 3px;border-left:0;border-bottom:2px solid transparent}.lnav.on{border-bottom-color:#8deaff}#lobbyProfile{font-size:8px;word-break:break-word}#lobbyMain{padding:14px 12px}#lobbyTop{font-size:8px}#wallet{font-size:12px;padding:9px}#lobbyHome{margin-top:9vh}#lobbyTitle{font-size:clamp(38px,11vw,60px);letter-spacing:-2px}#lobbyCards{grid-template-columns:1fr;gap:7px;margin-top:20px}.lobbyCard{min-height:70px;padding:12px}#storeHead h2{font-size:27px}#storeGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.storeItem{min-height:170px;padding:10px}.itemArt{height:65px;font-size:32px}}
+</style></head><body><div id="game"></div><div id="hud"><div id="tacticalHud"><div id="mini"><svg viewBox="0 0 160 160"><path d="M15 18H145V145H15Z M15 78H145 M78 18V145 M35 18V55H65V90H15 M100 145V108H145 M78 55H120V18" fill="none" stroke="#b9d4df" stroke-width="7" opacity=".55"/><path d="M80 80L94 94" stroke="#67eaff" stroke-width="3"/><circle cx="80" cy="80" r="5" fill="#6deaff"/><circle cx="43" cy="44" r="4" fill="#f65d78"/><circle cx="120" cy="105" r="4" fill="#f65d78"/></svg></div><div id="squad"><div class="portrait">J</div><div class="portrait">V</div><div class="portrait">S</div><div class="portrait">K</div><div class="portrait">M</div></div><div id="feed"><div class="feedrow">ALLY  ▰  ENEMY</div><div class="feedrow">ALLY  ▰  ENEMY</div></div><div id="chat">[TEAM] JETT: A 지점으로 이동!<br>[TEAM] SAGE: 확인했습니다.<br>[TEAM] PHOENIX: 적 발견!</div><div id="abilities"><div class="abilityTile">◉<small>C</small></div><div class="abilityTile">➤<small>Q</small></div><div class="abilityTile">✦<small>E</small></div><div class="abilityTile">◇<small>X</small></div></div></div><div class="top"><div><div class="brand">TACTICAL FRONTLINE</div><div class="tag">COMBAT SIMULATION // LIVE</div></div><div class="box"><small>ELIMINATIONS</small><b id="kills">0</b></div><div class="box"><small>WAVE</small><b id="wave">1</b></div><div class="box"><small>HOSTILES</small><b id="hostiles">0</b></div></div><div id="notice">SECTOR 07 // SECURE THE AREA</div><div id="cross"></div><div id="bottom"><div class="health"><div class="label">VITALS <b id="hpnum">100</b> / ARMOR <b id="armor">50</b></div><div class="bar"><i id="hpbar"></i></div><div class="label" style="margin-top:7px">ABILITY <b id="energy">100</b>%</div><div class="bar"><i id="energybar" style="background:#b68cff"></i></div></div><div id="ammo"><div id="weaponName">VXR-9 ASSAULT</div><span id="mag">30</span><span style="font-size:14px;color:#89a2b3"> / <span id="reserve">180</span></span><small>MAGAZINE / RESERVE</small></div></div><div id="mobile"><div id="look"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="mb fire" id="fire">FIRE</button><button class="mb dash" id="dash">DASH</button><button class="mb reload" id="reload">RELOAD</button><button class="mb skill" id="skill">SKILL</button></div></div>
 <div id="referenceHUD"><div id="refNet" style="position:absolute;left:16px;top:8px;font-size:13px;font-weight:700;letter-spacing:.2px">FPS: 240&nbsp;&nbsp; 핑: 12ms</div>
 <div id="matchbar"><div class="teamfaces"><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i></div><div class="score">12</div><div class="clock">08:24</div><div class="score red">8</div><div class="teamfaces"><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i></div></div>
 <div id="refFeed"><div class="refkill"><span>신신우</span><b class="weapon">▰➜</b><span>레이나</span></div><div class="refkill"><span>제트</span><b class="weapon">▰➜</b><span>소바</span></div><div class="refkill"><span>레이즈</span><b class="weapon">▰➜</b><span>브림스톤</span></div><div class="refkill"><span>오멘</span><b class="weapon">▰➜</b><span>제트</span></div></div>
@@ -84,7 +122,40 @@ body{font-family:Inter,Arial,sans-serif;background:#111}
 <div id="refVitals"><div id="refAvatar"></div><div id="refBars"><div class="refbar"><i></i></div><div class="refbar"><i style="width:100%;background:#76dfff"></i></div></div><div id="refHp">100</div></div>
 <div id="refSkills"><div class="refskill">◉<small>C</small></div><div class="refskill">⌃<small>Q</small></div><div class="refskill">➜<small>E</small></div><div class="refskill">✣<small>X</small></div></div>
 <div id="refAmmo">30 <small>▸ 90</small></div><div id="refMoney">₡ 5,200</div>
-</div><div id="start"><div class="panel"><div class="eyebrow">TACTICAL FRONTLINE // BUILD 02</div><div class="title">ENTER THE<br><span>COMBAT ZONE.</span></div><div class="desc">1인칭 전술 히어로 슈터. 전장을 이동하며 웨이브를 방어하십시오.<br>PC: WASD 이동 · 마우스 조준/발사 · R 재장전 · Shift 대시 · Q 스킬 · 1/2/3 무기 변경<br>모바일: 왼쪽 조이스틱 · 오른쪽 드래그 조준 · FIRE / DASH / SKILL / RELOAD</div><div class="label">OPERATIVE</div><div class="row" id="heroes"><button class="selected" data-hero="assault">ASSAULT</button><button data-hero="scout">SCOUT</button><button data-hero="heavy">HEAVY</button></div><div class="label">MISSION</div><div class="row" id="modes"><button class="selected" data-mode="survival">SURVIVAL</button><button data-mode="elimination">ELIMINATION</button><button data-mode="precision">PRECISION</button></div><div class="row"><button class="primary" id="play">DEPLOY</button><button id="quality">GRAPHICS: HIGH</button><button id="sound">SOUND: ON</button></div><div class="desc" id="best">LOCAL BEST: 0 ELIMINATIONS</div></div></div>
+</div>
+<div id="lobby">
+ <aside id="lobbyNav">
+  <div id="lobbyBrand">TACTICAL<br>FRONTLINE<small>PROTOCOL // 01</small></div>
+  <button class="lnav on" data-page="home">⌂　로비</button>
+  <button class="lnav" data-page="agents">◈　요원</button>
+  <button class="lnav" data-page="store">▣　상점</button>
+  <button class="lnav" data-page="night">◐　암시장</button>
+  <button class="lnav" data-page="collection">▤　컬렉션</button>
+  <button class="lnav" data-page="missions">◎　임무</button>
+  <button class="lnav" data-page="career">▥　커리어</button>
+  <div id="lobbyProfile">PLAYER<br><b>신신우</b><br>레벨 01 · 비경쟁</div>
+ </aside>
+ <main id="lobbyMain">
+  <div id="lobbyTop"><span>REGION: ASIA PACIFIC　 /　 BUILD 0.3</span><div id="wallet">◈ <span id="credits">5200</span></div></div>
+  <section id="lobbyHome">
+   <div id="lobbyKicker">TACTICAL FRONTLINE // HOME</div>
+   <div id="lobbyTitle">ENTER THE<br><span>FRONTLINE.</span></div>
+   <div id="lobbySub">전술 요원을 선택하고 팀을 구성하십시오. 장비를 준비한 뒤 전장에 배치됩니다.</div>
+   <div id="lobbyActions"><button class="primary" id="lobbyPlay">전투 시작　▶</button><button id="lobbySelect">요원 선택</button><button id="lobbySettings">설정</button></div>
+   <div id="lobbyCards">
+    <div class="lobbyCard"><b>UNRATED　/　일반전</b><span>가볍게 전투를 즐기는 기본 모드</span></div>
+    <div class="lobbyCard"><b>DEATHMATCH　/　데스매치</b><span>개인 전투 능력을 시험하는 모드</span></div>
+    <div class="lobbyCard"><b>TRAINING　/　훈련장</b><span>무기 조작과 사격 연습</span></div>
+   </div>
+  </section>
+  <section id="storePanel">
+   <div id="storeHead"><div><div id="lobbyKicker">ARMORY // BLACK MARKET</div><h2 id="storeTitle">무기 상점</h2></div><button id="storeBack">로비로</button></div>
+   <div id="storeTabs"><button class="on" data-tab="store">추천 상점</button><button data-tab="night">암시장</button><button data-tab="collection">보유 목록</button></div>
+   <div id="storeGrid"></div><div id="storeNote"></div>
+  </section>
+ </main>
+</div>
+<div id="start" style="display:none"><div class="panel"><div class="eyebrow">TACTICAL FRONTLINE // BUILD 02</div><div class="title">ENTER THE<br><span>COMBAT ZONE.</span></div><div class="desc">1인칭 전술 히어로 슈터. 전장을 이동하며 웨이브를 방어하십시오.<br>PC: WASD 이동 · 마우스 조준/발사 · R 재장전 · Shift 대시 · Q 스킬 · 1/2/3 무기 변경<br>모바일: 왼쪽 조이스틱 · 오른쪽 드래그 조준 · FIRE / DASH / SKILL / RELOAD</div><div class="label">OPERATIVE</div><div class="row" id="heroes"><button class="selected" data-hero="assault">ASSAULT</button><button data-hero="scout">SCOUT</button><button data-hero="heavy">HEAVY</button></div><div class="label">MISSION</div><div class="row" id="modes"><button class="selected" data-mode="survival">SURVIVAL</button><button data-mode="elimination">ELIMINATION</button><button data-mode="precision">PRECISION</button></div><div class="row"><button class="primary" id="play">DEPLOY</button><button id="quality">GRAPHICS: HIGH</button><button id="sound">SOUND: ON</button></div><div class="desc" id="best">LOCAL BEST: 0 ELIMINATIONS</div></div></div>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
 <script type="module">
 import * as THREE from 'three';
@@ -355,6 +426,43 @@ bots.forEach(b=>{if(!b.userData.alive)return;let dx=player.pos.x-b.position.x,dz
 if(!bots.some(b=>b.userData.alive)){if(mode==='elimination'){active=false;let best=Number(localStorage.getItem('tfbest')||0);localStorage.setItem('tfbest',Math.max(best,kills));$('#best').textContent='LOCAL BEST: '+Math.max(best,kills)+' ELIMINATIONS';$('#start').style.display='grid';$('.eyebrow').textContent='MISSION COMPLETE';$('.title').innerHTML='ZONE<br><span>SECURED.</span>';$('#play').textContent='PLAY AGAIN'}else{wave++;spawnWave();player.hp=Math.min(100,player.hp+12);player.armor=Math.min(100,player.armor+10);hud()}}
 if(player.hp<=0){active=false;let best=Number(localStorage.getItem('tfbest')||0);localStorage.setItem('tfbest',Math.max(best,kills));$('#best').textContent='LOCAL BEST: '+Math.max(best,kills)+' ELIMINATIONS';$('#start').style.display='grid';$('.eyebrow').textContent='OPERATOR DOWN';$('.title').innerHTML='MISSION<br><span>FAILED.</span>';$('#play').textContent='REDEPLOY'}
 }
-function frame(now){requestAnimationFrame(frame);let dt=Math.min((now-lastTime)/1000||0,.04);lastTime=now;update(dt,now/1000);renderer.render(scene,camera)}hud();$('#best').textContent='LOCAL BEST: '+(localStorage.getItem('tfbest')||0)+' ELIMINATIONS';requestAnimationFrame(frame);
+function frame(now){requestAnimationFrame(frame);let dt=Math.min((now-lastTime)/1000||0,.04);lastTime=now;update(dt,now/1000);renderer.render(scene,camera)}
+/* LOCAL LOBBY ECONOMY / UI SYSTEM */
+const catalog=[
+ {id:'vandal_ion',name:'ION RIFLE',type:'라이플 스킨',price:2175,icon:'✦',rarity:'EXCLUSIVE'},
+ {id:'phantom_neon',name:'NEON PHANTOM',type:'라이플 스킨',price:1775,icon:'ϟ',rarity:'PREMIUM'},
+ {id:'operator_void',name:'VOID OPERATOR',type:'저격총 스킨',price:2475,icon:'⌁',rarity:'EXCLUSIVE'},
+ {id:'knife_arc',name:'ARC BLADE',type:'근접 무기',price:4350,icon:'⚔',rarity:'ULTRA'},
+ {id:'spectre_ice',name:'FROST SPECTRE',type:'기관단총 스킨',price:1275,icon:'❄',rarity:'PREMIUM'},
+ {id:'guardian_gold',name:'GILDED GUARDIAN',type:'라이플 스킨',price:1775,icon:'◇',rarity:'PREMIUM'},
+ {id:'classic_pulse',name:'PULSE CLASSIC',type:'권총 스킨',price:875,icon:'◎',rarity:'SELECT'},
+ {id:'marshal_ember',name:'EMBER MARSHAL',type:'저격총 스킨',price:1275,icon:'♨',rarity:'SELECT'},
+ {id:'judge_titan',name:'TITAN JUDGE',type:'산탄총 스킨',price:1775,icon:'⬡',rarity:'PREMIUM'}
+];
+let credits=Number(localStorage.getItem('tf_credits')||5200);
+let owned=JSON.parse(localStorage.getItem('tf_owned')||'["classic_pulse"]');
+let equipped=localStorage.getItem('tf_equipped')||'classic_pulse';
+const saveEconomy=()=>{localStorage.setItem('tf_credits',credits);localStorage.setItem('tf_owned',JSON.stringify(owned));localStorage.setItem('tf_equipped',equipped);$('#credits').textContent=credits.toLocaleString('ko-KR')};
+function showStore(page){
+ $('#lobbyHome').style.display='none';$('#storePanel').style.display='block';
+ document.querySelectorAll('.lnav').forEach(b=>b.classList.toggle('on',b.dataset.page===page));
+ const isOwned=page==='collection',isNight=page==='night';
+ $('#storeTitle').textContent=isOwned?'컬렉션':isNight?'암시장':'무기 상점';
+ document.querySelectorAll('#storeTabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===page));
+ let list=isOwned?catalog.filter(x=>owned.includes(x.id)):isNight?catalog.filter((x,i)=>((new Date().getDate()+i*3)%catalog.length)<4):catalog.slice(0,6);
+ $('#storeGrid').innerHTML=list.map(x=>{const have=owned.includes(x.id),wear=equipped===x.id;return '<article class="storeItem"><div><div class="itemArt">'+x.icon+'</div><small>'+x.rarity+'　/　'+x.type+'</small><h3>'+x.name+'</h3></div><div><small>'+(wear?'장착 중':have?'보유 중':x.price.toLocaleString('ko-KR')+' CREDITS')+'</small><button data-item="'+x.id+'" '+(wear?'disabled':'')+'>'+(wear?'장착됨':have?'장착하기':'구매하기')+'</button></div></article>'}).join('')||'<div class="storeItem">아직 보유한 아이템이 없습니다.</div>';
+ $('#storeNote').textContent=isNight?'암시장 상품은 날짜에 따라 바뀌는 개인별 제안입니다. 현재 버전은 로컬 저장 방식의 시범 상점이며 실제 결제·서버 동기화는 연결되지 않았습니다.':'게임 내 테스트용 가상 재화입니다. 실제 결제는 발생하지 않습니다.';
+ $('#storeGrid').onclick=e=>{const b=e.target.closest('button[data-item]');if(!b)return;const item=catalog.find(x=>x.id===b.dataset.item);if(!item)return;if(owned.includes(item.id)){equipped=item.id;saveEconomy();showStore(page);return}if(credits<item.price){$('#storeNote').textContent='크레딧이 부족합니다.';return}credits-=item.price;owned.push(item.id);equipped=item.id;saveEconomy();showStore(page)};
+}
+function showHome(){document.querySelectorAll('.lnav').forEach(b=>b.classList.toggle('on',b.dataset.page==='home'));$('#storePanel').style.display='none';$('#lobbyHome').style.display='block'}
+document.querySelectorAll('.lnav').forEach(b=>b.addEventListener('click',()=>{const p=b.dataset.page;if(p==='home')showHome();else if(['store','night','collection'].includes(p))showStore(p);else{showStore('collection');$('#storeTitle').textContent=p==='agents'?'요원':p==='missions'?'임무':'커리어';$('#storeGrid').innerHTML='<article class="storeItem"><h3>'+({agents:'요원 선택은 전투 준비 화면에서 가능합니다.',missions:'일일·주간 임무 시스템은 다음 업데이트에서 연결됩니다.',career:'레벨과 전적 시스템은 다음 업데이트에서 연결됩니다.'}[p])+'</h3></article>';}}));
+document.querySelectorAll('#storeTabs button').forEach(b=>b.addEventListener('click',()=>showStore(b.dataset.tab)));
+$('#lobbyPlay').onclick=()=>{ $('#lobby').style.display='none';$('#start').style.display='grid'; };
+$('#lobbySelect').onclick=()=>{ $('#lobby').style.display='none';$('#start').style.display='grid'; };
+$('#storeBack').onclick=showHome;
+$('#lobbySettings').onclick=()=>{alert('그래픽과 사운드 설정은 전투 준비 화면에서 변경할 수 있습니다.')};
+saveEconomy();
+
+hud();$('#best').textContent='LOCAL BEST: '+(localStorage.getItem('tfbest')||0)+' ELIMINATIONS';requestAnimationFrame(frame);
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,quality?1.7:1))});
 </script></body></html>
