@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>TACTICAL FRONTLINE — Browser Arena</title>
+<meta name="description" content="TACTICAL FRONTLINE 3D browser hero shooter prototype">
+<style>
+:root{color-scheme:dark;--cyan:#66e5ff;--red:#ff526b;--panel:rgba(7,15,27,.82)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#07111e;font-family:Inter,Arial,sans-serif;color:#edf8ff}canvas{display:block}
+#game{position:fixed;inset:0}#hud{position:fixed;inset:0;pointer-events:none}
+.top{position:absolute;top:16px;left:18px;right:18px;display:flex;justify-content:space-between;align-items:flex-start}
+.brand{font-size:12px;letter-spacing:3px;font-weight:900;color:var(--cyan)}.sub{font-size:10px;color:#8da8bd;letter-spacing:2px;margin-top:5px}
+.stat{background:var(--panel);border:1px solid #29455b;padding:10px 14px;min-width:120px;backdrop-filter:blur(10px)}.stat small{display:block;color:#91aabd;font-size:9px;letter-spacing:2px}.stat b{font-size:20px}
+#healthWrap{position:absolute;bottom:24px;left:22px;width:220px}.label{font-size:10px;letter-spacing:2px;color:#a9c0d0;margin-bottom:7px}.bar{height:8px;background:#1a2b3c;border:1px solid #395269}.bar>i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#27d9c1,#71f5ff);transition:width .15s}
+#ammo{position:absolute;right:24px;bottom:22px;text-align:right;font-size:30px;font-weight:900}#ammo small{font-size:10px;display:block;letter-spacing:2px;color:#a6bacb}
+#cross{position:absolute;left:50%;top:50%;width:20px;height:20px;transform:translate(-50%,-50%)}#cross:before,#cross:after{content:"";position:absolute;background:#dffaff;box-shadow:0 0 8px #61e8ff}#cross:before{width:2px;height:18px;left:9px;top:1px}#cross:after{height:2px;width:18px;top:9px;left:1px}
+#notice{position:absolute;top:90px;left:50%;transform:translateX(-50%);font-size:12px;letter-spacing:2px;color:#c4efff;text-shadow:0 2px 10px #000}
+#start{position:fixed;inset:0;display:grid;place-items:center;background:radial-gradient(ellipse at center,rgba(17,49,71,.62),rgba(3,8,16,.96));z-index:5}
+.card{width:min(520px,calc(100% - 32px));padding:30px;border:1px solid #31556d;background:rgba(5,14,25,.92);box-shadow:0 20px 90px #000a}
+.kicker{color:var(--cyan);font-size:10px;letter-spacing:4px;font-weight:bold}.title{font-size:clamp(32px,8vw,56px);line-height:.95;font-weight:1000;letter-spacing:-2px;margin:14px 0}.title span{color:var(--cyan)}.desc{color:#9eb6c8;line-height:1.65;font-size:13px;margin:18px 0 24px}
+button{border:0;background:var(--cyan);color:#04111b;font-weight:900;letter-spacing:2px;padding:14px 22px;cursor:pointer}button:active{transform:scale(.97)}.secondary{background:#172d40;color:#dff7ff;border:1px solid #35536b}
+#mobile{display:none;position:absolute;inset:0;pointer-events:none}.stick{position:absolute;bottom:48px;left:28px;width:112px;height:112px;border:1px solid #9adfff66;border-radius:50%;background:#18334b55;pointer-events:auto;touch-action:none}.knob{position:absolute;left:34px;top:34px;width:44px;height:44px;border-radius:50%;background:#8cecff88;border:1px solid #c7f7ff}
+.mbtn{position:absolute;right:24px;border:1px solid #a6eaff88;background:#15354dcc;color:white;border-radius:50%;width:62px;height:62px;padding:0;pointer-events:auto;touch-action:none;font-size:10px}.fire{bottom:54px;width:78px;height:78px;background:#9e304cdd;border-color:#ff9aab}.ability{bottom:145px;right:42px}.reload{bottom:54px;right:116px}
+#look{position:absolute;right:0;top:0;width:55%;height:70%;pointer-events:auto;touch-action:none}
+@media(pointer:coarse){#mobile{display:block}#healthWrap{bottom:16px;left:12px;width:150px}#ammo{bottom:14px;right:12px;font-size:24px}.top{top:10px;left:10px;right:10px}.stat{min-width:85px;padding:7px 9px}}
+</style>
+</head>
+<body>
+<div id="game"></div>
+<div id="hud">
+ <div class="top"><div><div class="brand">TACTICAL FRONTLINE</div><div class="sub">BROWSER COMBAT PROTOTYPE / 01</div></div><div class="stat"><small>ELIMINATIONS</small><b id="kills">00</b></div><div class="stat"><small>HOSTILES</small><b id="hostiles">05</b></div></div>
+ <div id="notice">SECTOR 07 — TRAINING ZONE</div><div id="cross"></div>
+ <div id="healthWrap"><div class="label">VITALS <b id="hpText">100</b></div><div class="bar"><i id="hp"></i></div></div>
+ <div id="ammo"><small>RIFLE / MAGAZINE</small><span id="ammoText">30</span> <span style="font-size:15px;color:#8199ac">/ 120</span></div>
+ <div id="mobile"><div id="look"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="mbtn fire" id="fire">FIRE</button><button class="mbtn ability" id="dash">DASH</button><button class="mbtn reload" id="reload">R</button></div>
+</div>
+<div id="start"><div class="card"><div class="kicker">TACTICAL FRONTLINE / FIELD TEST</div><div class="title">OWN THE<br><span>FRONTLINE.</span></div><div class="desc">3D 히어로 슈터 브라우저 프로토타입입니다. 적 훈련 봇을 처치하고 전장을 확보하세요.<br><br>PC: WASD 이동 · 마우스 조준/발사 · R 재장전 · Shift 대시<br>모바일: 왼쪽 조이스틱 이동 · 오른쪽 화면 드래그 조준 · FIRE / DASH</div><button id="play">DEPLOY TO ARENA</button> <button class="secondary" id="quality">QUALITY: HIGH</button></div></div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+const root=document.querySelector('#game');
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x071522);scene.fog=new THREE.Fog(0x071522,24,78);
+const camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.1,160);
+const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;root.appendChild(renderer.domElement);
+scene.add(new THREE.HemisphereLight(0x9bcfff,0x15202b,2.0));
+const sun=new THREE.DirectionalLight(0xc4e8ff,2.4);sun.position.set(-12,24,8);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);scene.add(sun);
+const mat=(c,rough=.7,metal=0)=>new THREE.MeshStandardMaterial({color:c,roughness:rough,metalness:metal});
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(100,100),mat(0x182b3a));floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;scene.add(floor);
+const grid=new THREE.GridHelper(100,50,0x31536a,0x203849);grid.position.y=.012;scene.add(grid);
+function box(x,y,z,sx,sy,sz,color){const m=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),mat(color,.8,.12));m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;scene.add(m);return m}
+for(let i=-2;i<=2;i++){box(i*12,2,-23,5,4,2,0x233f54);box(i*12,2,23,5,4,2,0x233f54)}
+for(let i=0;i<10;i++){let a=i*Math.PI/5;box(Math.cos(a)*18,1.5,Math.sin(a)*18,3,3,3,i%2?0x28475a:0x263849)}
+for(let i=0;i<6;i++){box((i-2.5)*8,1,-7,2,2,2,0x345064);box((i-2.5)*8,1,8,2,2,2,0x345064)}
+const player=new THREE.Group();scene.add(player);
+const body=new THREE.Mesh(new THREE.CapsuleGeometry(.48,.9,5,10),mat(0x39b9ce,.48,.35));body.position.y=1.05;body.castShadow=true;player.add(body);
+const visor=new THREE.Mesh(new THREE.BoxGeometry(.48,.22,.12),mat(0x9af5ff,.2,.6));visor.position.set(0,1.48,-.38);player.add(visor);
+const gun=new THREE.Mesh(new THREE.BoxGeometry(.18,.18,.85),mat(0x172532,.35,.7));gun.position.set(.42,1.18,-.55);player.add(gun);
+const muzzle=new THREE.Mesh(new THREE.SphereGeometry(.09,8,8),new THREE.MeshBasicMaterial({color:0x9af5ff}));muzzle.position.set(.42,1.18,-1);player.add(muzzle);
+player.position.set(0,0,12);
+const bots=[];const botMat=mat(0xc64d60,.5,.2),botGlow=mat(0xffa2a9,.25,.2);
+function spawnBot(i){const g=new THREE.Group();const b=new THREE.Mesh(new THREE.CapsuleGeometry(.48,.9,4,8),botMat);b.position.y=1;b.castShadow=true;g.add(b);const head=new THREE.Mesh(new THREE.SphereGeometry(.3,12,8),botGlow);head.position.y=1.85;g.add(head);const eye=new THREE.Mesh(new THREE.BoxGeometry(.28,.07,.06),new THREE.MeshBasicMaterial({color:0xffdce0}));eye.position.set(0,1.88,-.27);g.add(eye);g.position.set((Math.random()-.5)*28,0,-10-Math.random()*18);g.userData={hp:100,alive:true,hit:0,phase:Math.random()*6};scene.add(g);bots.push(g)}
+for(let i=0;i<5;i++)spawnBot(i);
+let yaw=0,pitch=-.12,hp=100,ammo=30,reserve=120,kills=0,active=false,reloading=false,quality=true,fireHeld=false,move={x:0,y:0},keys={},lastShot=0;
+const ray=new THREE.Raycaster();const clock=new THREE.Clock();const v=new THREE.Vector3();
+function updateHud(){document.querySelector('#hp').style.width=hp+'%';document.querySelector('#hpText').textContent=Math.ceil(hp);document.querySelector('#ammoText').textContent=ammo;document.querySelector('#kills').textContent=String(kills).padStart(2,'0');document.querySelector('#hostiles').textContent=bots.filter(b=>b.userData.alive).length}
+function reload(){if(reloading||ammo===30||reserve<=0)return;reloading=true;document.querySelector('#notice').textContent='RELOADING';setTimeout(()=>{let n=Math.min(30-ammo,reserve);ammo+=n;reserve-=n;reloading=false;updateHud();document.querySelector('#notice').textContent='SECTOR 07 — TRAINING ZONE'},1100)}
+function shoot(){if(!active||reloading||performance.now()-lastShot<135)return;lastShot=performance.now();if(ammo<=0){reload();return}ammo--;updateHud();ray.setFromCamera(new THREE.Vector2(0,0),camera);const targets=bots.filter(b=>b.userData.alive);const hits=ray.intersectObjects(targets,true);if(hits.length){let o=hits[0].object;while(o.parent&&!o.userData.hp)o=o.parent;if(o.userData.hp){o.userData.hp-=34;o.userData.hit=.12;if(o.userData.hp<=0){o.userData.alive=false;o.visible=false;kills++;document.querySelector('#notice').textContent='TARGET ELIMINATED';setTimeout(()=>{if(active){o.visible=true;o.position.set((Math.random()-.5)*30,0,-12-Math.random()*18);o.userData.hp=100;o.userData.alive=true;updateHud()}},2200)}}}muzzle.material.color.setHex(0xffffff);setTimeout(()=>muzzle.material.color.setHex(0x9af5ff),45)}
+function dash(){if(!active)return;player.position.x-=Math.sin(yaw)*2.8;player.position.z-=Math.cos(yaw)*2.8;player.position.x=Math.max(-22,Math.min(22,player.position.x));player.position.z=Math.max(-22,Math.min(22,player.position.z));document.querySelector('#notice').textContent='MOBILITY BOOST';setTimeout(()=>document.querySelector('#notice').textContent='SECTOR 07 — TRAINING ZONE',700)}
+function start(){active=true;document.querySelector('#start').style.display='none';if(matchMedia('(pointer:fine)').matches)renderer.domElement.requestPointerLock?.()}
+document.querySelector('#play').onclick=start;document.querySelector('#quality').onclick=e=>{quality=!quality;renderer.setPixelRatio(Math.min(devicePixelRatio,quality?1.7:1));e.target.textContent='QUALITY: '+(quality?'HIGH':'PERFORMANCE')};
+document.addEventListener('pointerlockchange',()=>{});
+document.addEventListener('mousemove',e=>{if(document.pointerLockElement===renderer.domElement&&active){yaw-=e.movementX*.0022;pitch-=e.movementY*.0018;pitch=Math.max(-.8,Math.min(.45,pitch))}});
+document.addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='KeyR')reload();if(e.code==='ShiftLeft')dash()});document.addEventListener('keyup',e=>keys[e.code]=false);
+renderer.domElement.addEventListener('mousedown',e=>{if(e.button===0){if(!active)start();else shoot()}});
+renderer.domElement.addEventListener('contextmenu',e=>e.preventDefault());
+const stick=document.querySelector('#stick'),knob=document.querySelector('#knob');let stickId=null;
+stick.addEventListener('pointerdown',e=>{stickId=e.pointerId;stick.setPointerCapture(stickId);stickMove(e)});
+stick.addEventListener('pointermove',e=>{if(e.pointerId===stickId)stickMove(e)});
+function stickMove(e){const r=stick.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2),len=Math.hypot(dx,dy),k=Math.min(34,len),a=Math.atan2(dy,dx);knob.style.left=(34+Math.cos(a)*k)+'px';knob.style.top=(34+Math.sin(a)*k)+'px';move.x=Math.cos(a)*k/34;move.y=Math.sin(a)*k/34}
+function resetStick(){stickId=null;move={x:0,y:0};knob.style.left='34px';knob.style.top='34px'}
+stick.addEventListener('pointerup',resetStick);stick.addEventListener('pointercancel',resetStick);
+const look=document.querySelector('#look');let lookId=null,lx=0,ly=0;
+look.addEventListener('pointerdown',e=>{lookId=e.pointerId;lx=e.clientX;ly=e.clientY;look.setPointerCapture(lookId)});
+look.addEventListener('pointermove',e=>{if(e.pointerId!==lookId)return;let dx=e.clientX-lx,dy=e.clientY-ly;lx=e.clientX;ly=e.clientY;yaw-=dx*.006;pitch=Math.max(-.8,Math.min(.45,pitch-dy*.0045))});
+look.addEventListener('pointerup',()=>lookId=null);look.addEventListener('pointercancel',()=>lookId=null);
+document.querySelector('#fire').addEventListener('pointerdown',e=>{e.preventDefault();fireHeld=true;shoot()});document.querySelector('#fire').addEventListener('pointerup',()=>fireHeld=false);document.querySelector('#fire').addEventListener('pointercancel',()=>fireHeld=false);
+document.querySelector('#dash').onclick=dash;document.querySelector('#reload').onclick=reload;
+function frame(){requestAnimationFrame(frame);let dt=Math.min(clock.getDelta(),.04);if(active){
+ let f=(keys.KeyW?1:0)-(keys.KeyS?1:0)-move.y,r=(keys.KeyD?1:0)-(keys.KeyA?1:0)+move.x;let len=Math.hypot(f,r);if(len>1){f/=len;r/=len}
+ player.position.x+=(Math.cos(yaw)*r+Math.sin(yaw)*f)*7*dt;player.position.z+=(-Math.cos(yaw)*f+Math.sin(yaw)*r)*7*dt;player.position.x=THREE.MathUtils.clamp(player.position.x,-23,23);player.position.z=THREE.MathUtils.clamp(player.position.z,-23,23);
+ player.rotation.y=yaw;
+ if(fireHeld&&matchMedia('(pointer:coarse)').matches)shoot();
+ bots.forEach(b=>{if(!b.userData.alive)return;let dx=player.position.x-b.position.x,dz=player.position.z-b.position.z,d=Math.hypot(dx,dz);if(d>2.3){b.position.x+=dx/d*dt*.75;b.position.z+=dz/d*dt*.75}else{hp=Math.max(0,hp-dt*4);updateHud()}b.rotation.y=Math.atan2(dx,dz);b.position.y=Math.sin(clock.elapsedTime*2+b.userData.phase)*.035});
+ if(hp<=0){active=false;document.querySelector('#start').style.display='grid';document.querySelector('.kicker').textContent='MISSION FAILED';document.querySelector('.title').innerHTML='REGROUP.<br><span>REDEPLOY.</span>';document.querySelector('#play').textContent='RESTART MISSION';document.querySelector('#play').onclick=()=>{hp=100;kills=0;ammo=30;reserve=120;player.position.set(0,0,12);bots.forEach(b=>{b.visible=true;b.userData.alive=true;b.userData.hp=100;b.position.set((Math.random()-.5)*28,0,-10-Math.random()*18)});updateHud();start()}}
+}
+const target=new THREE.Vector3(player.position.x,1.35,player.position.z);const forward=new THREE.Vector3(Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),-Math.cos(yaw)*Math.cos(pitch));const desired=target.clone().addScaledVector(forward,-5.8).add(new THREE.Vector3(0,2.5,0));camera.position.lerp(desired,.18);camera.lookAt(target.clone().addScaledVector(forward,10));
+renderer.render(scene,camera)}
+updateHud();frame();
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+</script>
+</body></html>
