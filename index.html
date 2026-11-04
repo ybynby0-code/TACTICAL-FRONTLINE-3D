@@ -201,6 +201,47 @@ body{font-family:Inter,Arial,sans-serif;background:#111}
  #lobbyFooter{height:34px;font-size:7px;padding:0 10px}
 }
 
+
+/* MOBILE FULLSCREEN + PLAYER IDENTITY */
+#lobbyProfile{cursor:pointer;user-select:none}
+#lobbyProfile:after{content:"✎ 닉네임 변경";display:block;margin-top:5px;color:#ff6671;font-size:9px;letter-spacing:1px}
+#lobbyTop{gap:8px}
+#fullScreenBtn{background:#111d2b;border:1px solid #ffffff35;color:#f4f7fb;padding:9px 12px;font-size:10px;white-space:nowrap}
+#fullScreenBtn:active,#lobbyProfile:active{opacity:.7}
+@media(max-width:700px){
+ html,body{height:100%;height:100dvh;min-height:100%;overscroll-behavior:none}
+ #lobby{height:100dvh;min-height:100dvh;inset:0;overflow:hidden}
+ #lobbyNav{height:62px;padding:0 7px;gap:1px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none}
+ #lobbyNav::-webkit-scrollbar{display:none}
+ #lobbyBrand{font-size:9px;letter-spacing:.3px;margin:0 5px 0 0;min-width:56px}
+ #lobbyBrand small{font-size:5px;letter-spacing:.2px}
+ .lnav{min-width:48px;padding:21px 5px 17px;font-size:8px;letter-spacing:0}
+ #lobbyProfile{min-width:78px;max-width:88px;padding-left:7px;font-size:8px;overflow:hidden;text-overflow:ellipsis}
+ #lobbyProfile b{font-size:10px}
+ #lobbyProfile:after{font-size:7px;letter-spacing:0}
+ #lobbyMain{height:calc(100dvh - 62px);padding:62px 12px 20px;overflow-y:auto;overscroll-behavior:contain}
+ #lobbyTop{position:absolute;top:62px;left:0;right:0;height:46px;padding:0 10px;justify-content:flex-end;background:#07111b99;z-index:3}
+ #wallet{font-size:11px;padding:7px 9px}
+ #fullScreenBtn{font-size:9px;padding:7px 9px}
+ #lobbyHome{min-height:calc(100dvh - 125px);padding:18px 2px 25px;justify-content:center;margin:0}
+ #lobbyTitle{font-size:clamp(39px,10vw,66px);letter-spacing:-2px}
+ #lobbySub{font-size:11px}
+ #lobbyActions{gap:6px;margin:18px 0}
+ #lobbyActions button{min-width:0;flex:1;padding:13px 8px;font-size:9px}
+ #lobbyCards{grid-template-columns:1fr;gap:6px;margin-top:12px}
+ .lobbyCard{min-height:58px;padding:10px 12px;text-align:left}
+ #storePanel{margin:8px auto 28px}
+ #storeGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #featurePanel{padding:12px 2px}
+ #lobbyFooter{display:none}
+}
+@media(max-width:380px){
+ #lobbyBrand{display:none}
+ .lnav{min-width:45px}
+ #lobbyProfile{min-width:70px}
+ #lobbyTitle{font-size:37px}
+}
+
 </style></head><body><div id="game"></div><div id="hud"><div id="tacticalHud"><div id="mini"><svg viewBox="0 0 160 160"><path d="M15 18H145V145H15Z M15 78H145 M78 18V145 M35 18V55H65V90H15 M100 145V108H145 M78 55H120V18" fill="none" stroke="#b9d4df" stroke-width="7" opacity=".55"/><path d="M80 80L94 94" stroke="#67eaff" stroke-width="3"/><circle cx="80" cy="80" r="5" fill="#6deaff"/><circle cx="43" cy="44" r="4" fill="#f65d78"/><circle cx="120" cy="105" r="4" fill="#f65d78"/></svg></div><div id="squad"><div class="portrait">J</div><div class="portrait">V</div><div class="portrait">S</div><div class="portrait">K</div><div class="portrait">M</div></div><div id="feed"><div class="feedrow">ALLY  ▰  ENEMY</div><div class="feedrow">ALLY  ▰  ENEMY</div></div><div id="chat">[TEAM] JETT: A 지점으로 이동!<br>[TEAM] SAGE: 확인했습니다.<br>[TEAM] PHOENIX: 적 발견!</div><div id="abilities"><div class="abilityTile">◉<small>C</small></div><div class="abilityTile">➤<small>Q</small></div><div class="abilityTile">✦<small>E</small></div><div class="abilityTile">◇<small>X</small></div></div></div><div class="top"><div><div class="brand">TACTICAL FRONTLINE</div><div class="tag">COMBAT SIMULATION // LIVE</div></div><div class="box"><small>ELIMINATIONS</small><b id="kills">0</b></div><div class="box"><small>WAVE</small><b id="wave">1</b></div><div class="box"><small>HOSTILES</small><b id="hostiles">0</b></div></div><div id="notice">SECTOR 07 // SECURE THE AREA</div><div id="cross"></div><div id="bottom"><div class="health"><div class="label">VITALS <b id="hpnum">100</b> / ARMOR <b id="armor">50</b></div><div class="bar"><i id="hpbar"></i></div><div class="label" style="margin-top:7px">ABILITY <b id="energy">100</b>%</div><div class="bar"><i id="energybar" style="background:#b68cff"></i></div></div><div id="ammo"><div id="weaponName">VXR-9 ASSAULT</div><span id="mag">30</span><span style="font-size:14px;color:#89a2b3"> / <span id="reserve">180</span></span><small>MAGAZINE / RESERVE</small></div></div><div id="mobile"><div id="look"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="mb fire" id="fire">FIRE</button><button class="mb dash" id="dash">DASH</button><button class="mb reload" id="reload">RELOAD</button><button class="mb skill" id="skill">SKILL</button></div></div>
 <div id="referenceHUD"><div id="refNet" style="position:absolute;left:16px;top:8px;font-size:13px;font-weight:700;letter-spacing:.2px">FPS: 240&nbsp;&nbsp; 핑: 12ms</div>
 <div id="matchbar"><div class="teamfaces"><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i></div><div class="score">12</div><div class="clock">08:24</div><div class="score red">8</div><div class="teamfaces"><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i></div></div>
@@ -607,6 +648,43 @@ addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updat
  document.getElementById('lobbySettings').onclick=()=>renderPage('settings');
  document.getElementById('storeBack').onclick=()=>renderPage('home');
  document.getElementById('lobbyTop').innerHTML='<span>ASIA PACIFIC　/　TACTICAL NETWORK</span><div id="wallet">◈ <span id="credits">5,200</span></div>';
+ const profile=document.getElementById('lobbyProfile');
+ const nicknameKey='tf_player_nickname';
+ let playerNickname=localStorage.getItem(nicknameKey)||'신신우';
+ function paintNickname(){profile.innerHTML='PLAYER<br><b></b><br><span>레벨 01 · 비경쟁</span>';profile.querySelector('b').textContent=playerNickname;profile.setAttribute('role','button');profile.setAttribute('aria-label','닉네임 변경');}
+ function changeNickname(){
+  const entered=prompt('변경할 닉네임을 입력하세요. (2~16자)',playerNickname);
+  if(entered===null)return;
+  const next=entered.trim();
+  if(next.length<2||next.length>16){alert('닉네임은 2~16자로 입력해 주세요.');return;}
+  if(/[<>]/.test(next)){alert('특수문자 < 와 > 는 사용할 수 없습니다.');return;}
+  playerNickname=next;localStorage.setItem(nicknameKey,playerNickname);paintNickname();
+ }
+ profile.addEventListener('click',changeNickname);
+ profile.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();changeNickname();}});
+ paintNickname();
+ const fsButton=document.createElement('button');fsButton.id='fullScreenBtn';fsButton.type='button';fsButton.textContent='⛶ 전체 화면';
+ document.getElementById('lobbyTop').appendChild(fsButton);
+ async function enterFullscreen(){
+  try{
+   if(!document.fullscreenElement&&document.documentElement.requestFullscreen){
+    await document.documentElement.requestFullscreen({navigationUI:'hide'});
+   }
+   if(screen.orientation&&screen.orientation.lock&&matchMedia('(pointer:coarse)').matches){
+    try{await screen.orientation.lock('landscape')}catch(_){}
+   }
+   fsButton.textContent=document.fullscreenElement?'⛶ 전체 화면 해제':'⛶ 전체 화면';
+  }catch(_){fsButton.textContent='브라우저 전체 화면 미지원';}
+ }
+ fsButton.addEventListener('click',async()=>{
+  try{if(document.fullscreenElement){await document.exitFullscreen();fsButton.textContent='⛶ 전체 화면';}else await enterFullscreen();}catch(_){}
+ });
+ document.addEventListener('fullscreenchange',()=>{fsButton.textContent=document.fullscreenElement?'⛶ 전체 화면 해제':'⛶ 전체 화면';});
+ if(matchMedia('(pointer:coarse)').matches){
+  const autoFullscreen=()=>{enterFullscreen();document.removeEventListener('pointerdown',autoFullscreen,true);};
+  document.addEventListener('pointerdown',autoFullscreen,true);
+ }
+
  const footer=document.createElement('div');footer.id='lobbyFooter';footer.innerHTML='<span>TACTICAL FRONTLINE <b>　BUILD 0.4</b></span><span>SERVER STATUS　<b>OPERATIONAL</b></span><span>PATCH NOTES　/　SUPPORT</span>';document.getElementById('lobby').appendChild(footer);
 })();
 
