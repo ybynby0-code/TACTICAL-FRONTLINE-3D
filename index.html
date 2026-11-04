@@ -562,9 +562,9 @@ addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updat
   <div id="lobbySub">전장을 선택하고 요원을 구성하십시오. 장비를 확인한 뒤 팀과 함께 작전을 시작합니다.</div>
   <div id="lobbyActions"><button class="primary" id="lobbyPlay">▶　작전 시작</button><button id="lobbySelect">요원 선택</button><button id="lobbySettings">⚙　설정</button></div>
   <div id="lobbyCards">
-   <div class="lobbyCard"><b>UNRATED　/　일반전</b><span>부담 없이 실력을 시험하는 기본 모드</span></div>
-   <div class="lobbyCard"><b>DEATHMATCH　/　데스매치</b><span>개인 전투 감각과 조준 훈련</span></div>
-   <div class="lobbyCard"><b>TRAINING　/　훈련장</b><span>무기와 요원 능력 연습</span></div>
+   <button class="lobbyCard" data-mode="survival"><b>UNRATED　/　일반전</b><span>부담 없이 실력을 시험하는 기본 모드</span></button>
+   <button class="lobbyCard" data-mode="elimination"><b>DEATHMATCH　/　데스매치</b><span>개인 전투 감각과 조준 훈련</span></button>
+   <button class="lobbyCard" data-mode="precision"><b>TRAINING　/　훈련장</b><span>무기와 요원 능력 연습</span></button>
   </div>
  </div>`;
  const main=document.getElementById('lobbyMain');
@@ -584,7 +584,13 @@ addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updat
   feature.querySelector('.featureGrid').onclick=e=>{
    const b=e.target.closest('button[data-feature]');if(!b)return;
    if(page==='agents'){feature.querySelectorAll('.featureCard').forEach((c,i)=>c.classList.toggle('active',i===Number(b.dataset.index)));b.textContent='선택됨';}
-   else {const c=b.closest('.featureCard');c.querySelector('p').textContent='이 항목은 UI 구조가 준비되어 있으며 실제 계정/서버 데이터 연결은 아직 구현되지 않았습니다.';}
+   else {
+    const c=b.closest('.featureCard'),idx=Number(b.dataset.index);
+    if(page==='settings'&&idx===0){quality=!quality;renderer.setPixelRatio(Math.min(devicePixelRatio,quality?1.7:1));sun.castShadow=quality;c.querySelector('p').textContent='그래픽 품질: '+(quality?'높음':'성능 우선');b.textContent='변경됨';}
+    else if(page==='settings'&&idx===1){sound=!sound;c.querySelector('p').textContent='효과음: '+(sound?'켜짐':'꺼짐');b.textContent='변경됨';}
+    else if(page==='settings'&&idx===2){c.querySelector('p').textContent='PC: WASD 이동 · 마우스 조준 · 좌클릭 발사 · R 재장전 · Q 스킬. 모바일: 왼쪽 이동 패드 · 오른쪽 화면 드래그 조준.';b.textContent='조작 안내';}
+    else {c.querySelector('p').textContent='이 항목은 화면 구성만 준비되어 있습니다. 계정 서버 및 실제 임무·전적 데이터는 아직 연결되지 않았습니다.';b.textContent='확인';}
+  }
   };
  }
  function renderPage(page){
@@ -595,6 +601,7 @@ addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updat
  document.getElementById('lobbyNav').addEventListener('click',e=>{
   const b=e.target.closest('.lnav');if(!b)return;e.preventDefault();e.stopImmediatePropagation();renderPage(b.dataset.page);
  },true);
+ document.getElementById('lobbyCards').addEventListener('click',e=>{const card=e.target.closest('button[data-mode]');if(!card)return;mode=card.dataset.mode;document.querySelectorAll('#lobbyCards .lobbyCard').forEach(x=>x.classList.toggle('active',x===card));document.getElementById('lobbySub').textContent=({survival:'일반전 선택됨 · 웨이브 생존 모드',elimination:'데스매치 선택됨 · 적을 모두 제거하면 종료',precision:'훈련장 선택됨 · 조준과 사격 연습'})[mode];});
  document.getElementById('lobbyPlay').onclick=()=>{document.getElementById('lobby').style.display='none';document.getElementById('start').style.display='grid';};
  document.getElementById('lobbySelect').onclick=()=>renderPage('agents');
  document.getElementById('lobbySettings').onclick=()=>renderPage('settings');
