@@ -670,9 +670,6 @@ addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updat
    if(!document.fullscreenElement&&document.documentElement.requestFullscreen){
     await document.documentElement.requestFullscreen({navigationUI:'hide'});
    }
-   if(screen.orientation&&screen.orientation.lock&&matchMedia('(pointer:coarse)').matches){
-    try{await screen.orientation.lock('landscape')}catch(_){}
-   }
    fsButton.textContent=document.fullscreenElement?'⛶ 전체 화면 해제':'⛶ 전체 화면';
   }catch(_){fsButton.textContent='브라우저 전체 화면 미지원';}
  }
@@ -681,7 +678,7 @@ addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updat
  });
  document.addEventListener('fullscreenchange',()=>{fsButton.textContent=document.fullscreenElement?'⛶ 전체 화면 해제':'⛶ 전체 화면';});
  if(matchMedia('(pointer:coarse)').matches){
-  const autoFullscreen=()=>{enterFullscreen();document.removeEventListener('pointerdown',autoFullscreen,true);};
+  const autoFullscreen=(event)=>{if(event.target&&event.target.closest&&event.target.closest('#fullScreenBtn'))return;enterFullscreen();document.removeEventListener('pointerdown',autoFullscreen,true);};
   document.addEventListener('pointerdown',autoFullscreen,true);
  }
 
