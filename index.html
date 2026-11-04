@@ -144,7 +144,7 @@ for(let x of [-23,23]){box(x,4,-5,7,8,7,stone);box(x,8,-5,8,.6,8,stoneLight)}
 
  // Detailed ground markings, drains, lane edges and worn painted tactical symbols
  const lineMat=new THREE.MeshStandardMaterial({color:0xd8c6a1,roughness:.88});
- for(let side of [-1,1]){let stripe=mesh(new THREE.PlaneGeometry(.11,52),lineMat,side*18,.035,4);stripe.rotation.x=-Math.PI/2;let drain=mesh(new THREE.PlaneGeometry(.34,20),gunEdge,side*10,.04,5);drain.rotation.x=-Math.PI/2;for(let n=0;n<22;n++)box(side*10,.045,-5+n*.9,.34,.025,.045,mats.dark)}
+ for(let side of [-1,1]){let stripe=mesh(new THREE.PlaneGeometry(.11,52),lineMat,side*18,.035,4);stripe.rotation.x=-Math.PI/2;let drain=mesh(new THREE.PlaneGeometry(.34,20),mats.dark,side*10,.04,5);drain.rotation.x=-Math.PI/2;for(let n=0;n<22;n++)box(side*10,.045,-5+n*.9,.34,.025,.045,mats.dark)}
  const markMat=new THREE.MeshBasicMaterial({color:0xd8d0bd,transparent:true,opacity:.24,side:THREE.DoubleSide});
  const arrow=mesh(new THREE.PlaneGeometry(3.2,2.4),markMat,17,.045,9);arrow.rotation.x=-Math.PI/2;
 
