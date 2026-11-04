@@ -114,6 +114,93 @@ body{font-family:Inter,Arial,sans-serif;background:#111}
 #storeNote{font-size:10px;color:#94aabb;line-height:1.7;margin-top:16px}
 #lobbyBack{display:none}
 @media(max-width:700px){#lobby{grid-template-columns:76px 1fr}#lobbyNav{padding:13px 6px;gap:5px}#lobbyBrand{font-size:9px;letter-spacing:0;text-align:center;line-height:1.4;margin:4px 0 15px}#lobbyBrand small{font-size:6px;letter-spacing:0}.lnav{font-size:8px;letter-spacing:0;text-align:center;padding:12px 3px;border-left:0;border-bottom:2px solid transparent}.lnav.on{border-bottom-color:#8deaff}#lobbyProfile{font-size:8px;word-break:break-word}#lobbyMain{padding:14px 12px}#lobbyTop{font-size:8px}#wallet{font-size:12px;padding:9px}#lobbyHome{margin-top:9vh}#lobbyTitle{font-size:clamp(38px,11vw,60px);letter-spacing:-2px}#lobbyCards{grid-template-columns:1fr;gap:7px;margin-top:20px}.lobbyCard{min-height:70px;padding:12px}#storeHead h2{font-size:27px}#storeGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.storeItem{min-height:170px;padding:10px}.itemArt{height:65px;font-size:32px}}
+
+/* PREMIUM CLIENT REDESIGN */
+#lobby{display:block;overflow:hidden;background:linear-gradient(110deg,rgba(5,10,18,.96),rgba(8,17,29,.78) 52%,rgba(5,11,20,.88));font-family:Inter,"Arial",sans-serif}
+#lobby:before{background:radial-gradient(ellipse at 73% 48%,#5ca9c51c,transparent 42%),linear-gradient(90deg,#050b13e8 0%,#07111b99 48%,#07111b35 100%),linear-gradient(0deg,#050b13 0%,transparent 35%,#050b13aa 100%);pointer-events:none}
+#lobbyNav{position:absolute;z-index:4;inset:0 0 auto;height:78px;padding:0 clamp(16px,4vw,58px);display:flex;flex-direction:row;align-items:center;gap:5px;background:linear-gradient(180deg,#050a12f2,#07111bdc);border:0;border-bottom:1px solid #c5e7f01a}
+#lobbyBrand{font-size:15px;line-height:1.05;letter-spacing:2px;margin:0 34px 0 0;white-space:nowrap}
+#lobbyBrand small{font-size:7px;letter-spacing:3px;margin-top:5px}
+.lnav{width:auto;min-width:82px;text-align:center;border:0;border-bottom:2px solid transparent;padding:28px 13px 24px;color:#9eabb9;font-size:10px;letter-spacing:1.4px;white-space:nowrap}
+.lnav.on,.lnav:hover{color:#fff;border-left:0;border-bottom-color:#ff4655;background:linear-gradient(180deg,transparent,#ff465511)}
+#lobbyProfile{margin:0 0 0 auto;border:0;border-left:1px solid #b9d2e022;padding:0 0 0 20px;min-width:125px;font-size:9px;line-height:1.45;white-space:nowrap}
+#lobbyProfile b{font-size:12px;color:#fff}
+#lobbyMain{height:100%;padding:78px clamp(16px,4vw,58px) 0;overflow:auto}
+#lobbyTop{height:58px;display:flex;align-items:center;justify-content:flex-end;color:#9baebe;font-size:9px;letter-spacing:1.5px}
+#wallet{background:#101a27cc;border:1px solid #ffffff20;padding:9px 15px;font-size:13px}
+#lobbyHome{position:relative;max-width:none;min-height:calc(100vh - 142px);margin:0;display:flex;flex-direction:column;justify-content:center;padding:0 2vw 50px}
+#lobbyHome:after{content:"";position:absolute;z-index:-1;right:4%;top:7%;width:min(44vw,620px);height:min(60vh,580px);border:1px solid #d4e7f012;background:radial-gradient(ellipse at 50% 48%,#d4e9f01a,transparent 58%);clip-path:polygon(50% 0,100% 22%,88% 100%,12% 100%,0 22%)}
+#lobbyKicker{font-size:9px;letter-spacing:4px;color:#ff6671;font-weight:800}
+#lobbyTitle{font-size:clamp(54px,8vw,112px);line-height:.84;letter-spacing:-5px;font-weight:950;margin:22px 0 19px;text-shadow:0 8px 35px #0009}
+#lobbyTitle span{color:#ff4655}
+#lobbySub{max-width:430px;color:#bac5ce;font-size:12px;line-height:1.9}
+#lobbyActions{display:flex;gap:9px;flex-wrap:wrap;margin:27px 0 25px}
+#lobbyActions button{min-width:132px;padding:16px 20px;font-size:10px;letter-spacing:1.4px;border:1px solid #ffffff3b;background:#101c29d9;color:#f2f5f8}
+#lobbyActions #lobbyPlay{background:#ff4655;color:#fff;border-color:#ff4655;box-shadow:0 8px 28px #ff465533}
+#lobbyActions button:hover{transform:translateY(-2px);filter:brightness(1.15)}
+#lobbyCards{display:grid;grid-template-columns:repeat(3,minmax(0,190px));gap:8px;margin-top:8px}
+.lobbyCard{min-height:78px;background:linear-gradient(120deg,#182535e8,#0b131edb);border:1px solid #ffffff1c;border-left:2px solid #667e91;padding:13px 14px;transition:.18s}
+.lobbyCard:hover{border-left-color:#ff4655;background:#1b2c3deF}
+.lobbyCard b{font-size:10px;letter-spacing:1.4px;margin-bottom:7px}
+.lobbyCard span{font-size:9px;color:#9eacb9}
+#storePanel{max-width:1250px;margin:10px auto 45px}
+#storeHead{border-bottom:1px solid #ffffff20;padding-bottom:17px}
+#storeHead h2{font-size:clamp(30px,4vw,48px);letter-spacing:-2px;font-weight:900}
+#storeTabs{margin:18px 0 22px;border-bottom:1px solid #ffffff20}
+#storeTabs button{border:0;border-bottom:2px solid transparent;background:transparent;color:#9cabb9;padding:13px 18px}
+#storeTabs button.on{background:transparent;color:#fff;border-bottom-color:#ff4655}
+#storeGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.storeItem{position:relative;min-height:260px;padding:0;border:1px solid #ffffff22;background:linear-gradient(145deg,#1b2a3b,#0b131e 75%);overflow:hidden}
+.storeItem>div:first-child{padding:18px 18px 0}
+.itemArt{height:128px;margin:0 -18px 13px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 55%,#d3e6f022,transparent 65%),linear-gradient(135deg,#24384c,#111c2a)}
+.itemArt:before{content:"";position:absolute;width:72%;height:9px;left:14%;top:52%;background:linear-gradient(90deg,#687987,#d6e2e7,#4e606d);transform:rotate(-18deg);box-shadow:0 0 18px #b7d7e044}
+.itemArt:after{content:"";position:absolute;width:20%;height:23px;left:38%;top:45%;background:#192431;border:1px solid #8295a4;transform:rotate(-18deg);box-shadow:18px 17px 0 -5px #0d1620}
+.storeItem:nth-child(3n+2) .itemArt{background:radial-gradient(ellipse,#5f8b9c44,transparent 60%),linear-gradient(135deg,#1e3447,#101823)}
+.storeItem:nth-child(3n) .itemArt{background:radial-gradient(ellipse,#b18c5c33,transparent 60%),linear-gradient(135deg,#3a302c,#111923)}
+.storeItem h3{font-size:14px;letter-spacing:1px}
+.storeItem small{font-size:8px;letter-spacing:1.2px;color:#a9b8c5}
+.storeItem>div:last-child{padding:12px 18px 16px;border-top:1px solid #ffffff15;background:#0a111a66}
+.storeItem button{margin-top:9px;background:#ff4655;border:0;color:#fff;padding:12px}
+.storeItem button:disabled{background:#263544;color:#9aabb9}
+#storeNote{font-size:9px;color:#8497a8}
+#lobbyBack{display:none}
+#featurePanel{display:none;max-width:1200px;margin:18px auto 55px}
+.featureHead{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid #ffffff22;padding:14px 0 22px}
+.featureHead h2{font-size:clamp(32px,5vw,54px);letter-spacing:-2px;margin:8px 0 0}
+.featureGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:24px}
+.featureCard{min-height:170px;padding:18px;background:linear-gradient(145deg,#1b2c3d,#0a121e);border:1px solid #ffffff20;position:relative}
+.featureCard strong{font-size:12px;letter-spacing:1.5px}
+.featureCard p{font-size:10px;line-height:1.7;color:#9eafbd}
+.featureCard button{margin-top:8px;width:100%;background:#17283a;border-color:#536a7d}
+.featureCard.active{border-color:#ff4655}
+#lobbyFooter{position:fixed;z-index:3;left:0;right:0;bottom:0;height:43px;padding:0 clamp(16px,4vw,58px);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#080e17ee,#0d1926dd);border-top:1px solid #ffffff18;font-size:8px;letter-spacing:1.5px;color:#899bab}
+#lobbyFooter b{color:#dce7ee}
+@media(max-width:760px){
+ #lobbyNav{height:65px;padding:0 7px;gap:0;overflow-x:auto}
+ #lobbyBrand{font-size:9px;letter-spacing:.5px;margin:0 7px 0 0}
+ #lobbyBrand small{font-size:5px;letter-spacing:1px}
+ .lnav{min-width:55px;padding:22px 5px 19px;font-size:8px;letter-spacing:0}
+ #lobbyProfile{display:none}
+ #lobbyMain{padding:65px 12px 43px}
+ #lobbyTop{height:42px}
+ #lobbyHome{min-height:calc(100vh - 150px);padding:0 3px 25px}
+ #lobbyHome:after{right:-10%;top:6%;width:75vw;height:38vh;opacity:.55}
+ #lobbyTitle{font-size:clamp(47px,13vw,76px);letter-spacing:-3px}
+ #lobbySub{font-size:10px;max-width:290px}
+ #lobbyActions{gap:6px;margin:18px 0}
+ #lobbyActions button{min-width:0;padding:14px 12px;font-size:9px}
+ #lobbyCards{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+ .lobbyCard{min-height:83px;padding:9px 7px}
+ .lobbyCard b{font-size:8px;letter-spacing:0}
+ .lobbyCard span{font-size:8px}
+ #storeGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ .storeItem{min-height:220px}
+ .itemArt{height:105px}
+ .featureGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ .featureCard{min-height:150px;padding:12px}
+ #lobbyFooter{height:34px;font-size:7px;padding:0 10px}
+}
+
 </style></head><body><div id="game"></div><div id="hud"><div id="tacticalHud"><div id="mini"><svg viewBox="0 0 160 160"><path d="M15 18H145V145H15Z M15 78H145 M78 18V145 M35 18V55H65V90H15 M100 145V108H145 M78 55H120V18" fill="none" stroke="#b9d4df" stroke-width="7" opacity=".55"/><path d="M80 80L94 94" stroke="#67eaff" stroke-width="3"/><circle cx="80" cy="80" r="5" fill="#6deaff"/><circle cx="43" cy="44" r="4" fill="#f65d78"/><circle cx="120" cy="105" r="4" fill="#f65d78"/></svg></div><div id="squad"><div class="portrait">J</div><div class="portrait">V</div><div class="portrait">S</div><div class="portrait">K</div><div class="portrait">M</div></div><div id="feed"><div class="feedrow">ALLY  ▰  ENEMY</div><div class="feedrow">ALLY  ▰  ENEMY</div></div><div id="chat">[TEAM] JETT: A 지점으로 이동!<br>[TEAM] SAGE: 확인했습니다.<br>[TEAM] PHOENIX: 적 발견!</div><div id="abilities"><div class="abilityTile">◉<small>C</small></div><div class="abilityTile">➤<small>Q</small></div><div class="abilityTile">✦<small>E</small></div><div class="abilityTile">◇<small>X</small></div></div></div><div class="top"><div><div class="brand">TACTICAL FRONTLINE</div><div class="tag">COMBAT SIMULATION // LIVE</div></div><div class="box"><small>ELIMINATIONS</small><b id="kills">0</b></div><div class="box"><small>WAVE</small><b id="wave">1</b></div><div class="box"><small>HOSTILES</small><b id="hostiles">0</b></div></div><div id="notice">SECTOR 07 // SECURE THE AREA</div><div id="cross"></div><div id="bottom"><div class="health"><div class="label">VITALS <b id="hpnum">100</b> / ARMOR <b id="armor">50</b></div><div class="bar"><i id="hpbar"></i></div><div class="label" style="margin-top:7px">ABILITY <b id="energy">100</b>%</div><div class="bar"><i id="energybar" style="background:#b68cff"></i></div></div><div id="ammo"><div id="weaponName">VXR-9 ASSAULT</div><span id="mag">30</span><span style="font-size:14px;color:#89a2b3"> / <span id="reserve">180</span></span><small>MAGAZINE / RESERVE</small></div></div><div id="mobile"><div id="look"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="mb fire" id="fire">FIRE</button><button class="mb dash" id="dash">DASH</button><button class="mb reload" id="reload">RELOAD</button><button class="mb skill" id="skill">SKILL</button></div></div>
 <div id="referenceHUD"><div id="refNet" style="position:absolute;left:16px;top:8px;font-size:13px;font-weight:700;letter-spacing:.2px">FPS: 240&nbsp;&nbsp; 핑: 12ms</div>
 <div id="matchbar"><div class="teamfaces"><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i></div><div class="score">12</div><div class="clock">08:24</div><div class="score red">8</div><div class="teamfaces"><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i></div></div>
@@ -156,7 +243,59 @@ body{font-family:Inter,Arial,sans-serif;background:#111}
  </main>
 </div>
 <div id="start" style="display:none"><div class="panel"><div class="eyebrow">TACTICAL FRONTLINE // BUILD 02</div><div class="title">ENTER THE<br><span>COMBAT ZONE.</span></div><div class="desc">1인칭 전술 히어로 슈터. 전장을 이동하며 웨이브를 방어하십시오.<br>PC: WASD 이동 · 마우스 조준/발사 · R 재장전 · Shift 대시 · Q 스킬 · 1/2/3 무기 변경<br>모바일: 왼쪽 조이스틱 · 오른쪽 드래그 조준 · FIRE / DASH / SKILL / RELOAD</div><div class="label">OPERATIVE</div><div class="row" id="heroes"><button class="selected" data-hero="assault">ASSAULT</button><button data-hero="scout">SCOUT</button><button data-hero="heavy">HEAVY</button></div><div class="label">MISSION</div><div class="row" id="modes"><button class="selected" data-mode="survival">SURVIVAL</button><button data-mode="elimination">ELIMINATION</button><button data-mode="precision">PRECISION</button></div><div class="row"><button class="primary" id="play">DEPLOY</button><button id="quality">GRAPHICS: HIGH</button><button id="sound">SOUND: ON</button></div><div class="desc" id="best">LOCAL BEST: 0 ELIMINATIONS</div></div></div>
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
+/* CLIENT UI REBUILD: real navigation and polished command hub */
+(function(){
+ const home=document.getElementById('lobbyHome');
+ home.innerHTML=`
+ <div class="homeHeroCopy">
+  <div id="lobbyKicker">TACTICAL FRONTLINE <span style="color:#9aabba">/ EPISODE 01</span></div>
+  <div id="lobbyTitle">YOUR NEXT<br><span>DEPLOYMENT.</span></div>
+  <div id="lobbySub">전장을 선택하고 요원을 구성하십시오. 장비를 확인한 뒤 팀과 함께 작전을 시작합니다.</div>
+  <div id="lobbyActions"><button class="primary" id="lobbyPlay">▶　작전 시작</button><button id="lobbySelect">요원 선택</button><button id="lobbySettings">⚙　설정</button></div>
+  <div id="lobbyCards">
+   <div class="lobbyCard"><b>UNRATED　/　일반전</b><span>부담 없이 실력을 시험하는 기본 모드</span></div>
+   <div class="lobbyCard"><b>DEATHMATCH　/　데스매치</b><span>개인 전투 감각과 조준 훈련</span></div>
+   <div class="lobbyCard"><b>TRAINING　/　훈련장</b><span>무기와 요원 능력 연습</span></div>
+  </div>
+ </div>`;
+ const main=document.getElementById('lobbyMain');
+ const feature=document.createElement('section');feature.id='featurePanel';main.appendChild(feature);
+ const pages={
+  agents:{kicker:'OPERATIVE ROSTER',title:'요원 선택',cards:[['ASSAULT','전방 교전과 진입에 특화된 공격 요원.'],['SCOUT','기동력과 정보 수집에 특화된 정찰 요원.'],['HEAVY','방어력과 생존 능력을 갖춘 중장갑 요원.']]},
+  missions:{kicker:'ACTIVE OPERATIONS',title:'임무',cards:[['DAILY CONTRACT','일일 임무 슬롯 · 보상 시스템 준비'],['WEEKLY CONTRACT','주간 목표 · 누적 진행도'],['FIELD TRAINING','전투 훈련 및 숙련도 과제']]},
+  career:{kicker:'PLAYER RECORD',title:'커리어',cards:[['OVERVIEW','레벨 · 승패 · 전투 기록'],['COMPETITIVE','랭크 및 시즌 기록'],['MATCH HISTORY','최근 전투 결과']]},
+  settings:{kicker:'SYSTEM CONFIGURATION',title:'설정',cards:[['GRAPHICS','고화질 / 성능 우선 설정'],['AUDIO','효과음 및 인터페이스 사운드'],['CONTROLS','키보드 · 마우스 · 모바일 조작']]}
+ };
+ function renderFeature(page){
+  const p=pages[page];if(!p)return;
+  home.style.display='none';document.getElementById('storePanel').style.display='none';feature.style.display='block';
+  feature.innerHTML='<div class="featureHead"><div><div id="lobbyKicker">'+p.kicker+'</div><h2>'+p.title+'</h2></div><button id="featureBack">←　로비</button></div><div class="featureGrid">'+p.cards.map((c,i)=>'<article class="featureCard '+(page==='agents'&&i===0?'active':'')+'"><strong>'+c[0]+'</strong><p>'+c[1]+'</p><button data-feature="'+page+'" data-index="'+i+'">'+(page==='agents'?'선택하기':'상세 보기')+'</button></article>').join('')+'</div>';
+  document.querySelectorAll('.lnav').forEach(b=>b.classList.toggle('on',b.dataset.page===page));
+  feature.querySelector('#featureBack').onclick=()=>renderFeature('home');
+  feature.querySelector('.featureGrid').onclick=e=>{
+   const b=e.target.closest('button[data-feature]');if(!b)return;
+   if(page==='agents'){feature.querySelectorAll('.featureCard').forEach((c,i)=>c.classList.toggle('active',i===Number(b.dataset.index)));b.textContent='선택됨';}
+   else {const c=b.closest('.featureCard');c.querySelector('p').textContent='이 항목은 UI 구조가 준비되어 있으며 실제 계정/서버 데이터 연결은 아직 구현되지 않았습니다.';}
+  };
+ }
+ function renderPage(page){
+  if(page==='home'){feature.style.display='none';document.getElementById('storePanel').style.display='none';home.style.display='flex';document.querySelectorAll('.lnav').forEach(b=>b.classList.toggle('on',b.dataset.page==='home'));return;}
+  if(['store','night','collection'].includes(page)){feature.style.display='none';showStore(page);return;}
+  renderFeature(page);
+ }
+ document.getElementById('lobbyNav').addEventListener('click',e=>{
+  const b=e.target.closest('.lnav');if(!b)return;e.preventDefault();e.stopImmediatePropagation();renderPage(b.dataset.page);
+ },true);
+ document.getElementById('lobbyPlay').onclick=()=>{document.getElementById('lobby').style.display='none';document.getElementById('start').style.display='grid';};
+ document.getElementById('lobbySelect').onclick=()=>renderPage('agents');
+ document.getElementById('lobbySettings').onclick=()=>renderPage('settings');
+ document.getElementById('storeBack').onclick=()=>renderPage('home');
+ document.getElementById('lobbyTop').innerHTML='<span>ASIA PACIFIC　/　TACTICAL NETWORK</span><div id="wallet">◈ <span id="credits">5,200</span></div>';
+ const footer=document.createElement('div');footer.id='lobbyFooter';footer.innerHTML='<span>TACTICAL FRONTLINE <b>　BUILD 0.4</b></span><span>SERVER STATUS　<b>OPERATIONAL</b></span><span>PATCH NOTES　/　SUPPORT</span>';document.getElementById('lobby').appendChild(footer);
+})();
+
+</script>
 <script type="module">
 import * as THREE from 'three';
 const $=s=>document.querySelector(s),root=$('#game'),scene=new THREE.Scene();scene.background=new THREE.Color(0x081725);scene.fog=new THREE.FogExp2(0x081725,.018);
