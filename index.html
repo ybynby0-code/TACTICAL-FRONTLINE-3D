@@ -274,7 +274,7 @@ body{font-family:Inter,Arial,sans-serif;background:#111}
 .opsTier button{width:100%;padding:8px 3px;font-size:10px}
 @media(max-width:700px){.opsPass{grid-template-columns:repeat(2,minmax(0,1fr))}.opsForm button{flex:1}}
 
-</style></head><body><div id="game"></div><div id="hud"><div id="tacticalHud"><div id="mini"><svg viewBox="0 0 160 160"><path d="M15 18H145V145H15Z M15 78H145 M78 18V145 M35 18V55H65V90H15 M100 145V108H145 M78 55H120V18" fill="none" stroke="#b9d4df" stroke-width="7" opacity=".55"/><path d="M80 80L94 94" stroke="#67eaff" stroke-width="3"/><circle cx="80" cy="80" r="5" fill="#6deaff"/><circle cx="43" cy="44" r="4" fill="#f65d78"/><circle cx="120" cy="105" r="4" fill="#f65d78"/></svg></div><div id="squad"><div class="portrait">J</div><div class="portrait">V</div><div class="portrait">S</div><div class="portrait">K</div><div class="portrait">M</div></div><div id="feed"><div class="feedrow">ALLY  ▰  ENEMY</div><div class="feedrow">ALLY  ▰  ENEMY</div></div><div id="chat">[TEAM] JETT: A 지점으로 이동!<br>[TEAM] SAGE: 확인했습니다.<br>[TEAM] PHOENIX: 적 발견!</div><div id="abilities"><div class="abilityTile">◉<small>C</small></div><div class="abilityTile">➤<small>Q</small></div><div class="abilityTile">✦<small>E</small></div><div class="abilityTile">◇<small>X</small></div></div></div><div class="top"><div><div class="brand">TACTICAL FRONTLINE</div><div class="tag">COMBAT SIMULATION // LIVE</div></div><div class="box"><small>ELIMINATIONS</small><b id="kills">0</b></div><div class="box"><small>WAVE</small><b id="wave">1</b></div><div class="box"><small>HOSTILES</small><b id="hostiles">0</b></div></div><div id="notice">SECTOR 07 // SECURE THE AREA</div><div id="cross"></div><div id="bottom"><div class="health"><div class="label">VITALS <b id="hpnum">100</b> / ARMOR <b id="armor">50</b></div><div class="bar"><i id="hpbar"></i></div><div class="label" style="margin-top:7px">ABILITY <b id="energy">100</b>%</div><div class="bar"><i id="energybar" style="background:#b68cff"></i></div></div><div id="ammo"><div id="weaponName">VXR-9 ASSAULT</div><span id="mag">30</span><span style="font-size:14px;color:#89a2b3"> / <span id="reserve">180</span></span><small>MAGAZINE / RESERVE</small></div></div><div id="mobile"><div id="look"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="mb fire" id="fire">FIRE</button><button class="mb dash" id="dash">DASH</button><button class="mb reload" id="reload">RELOAD</button><button class="mb skill" id="skill">SKILL</button></div></div>
+.opsArchiveHead{margin-bottom:12px}.opsArchiveHead input{width:100%;margin-top:12px;background:#091522;border:1px solid #547086;color:#fff;padding:13px;font:inherit;outline:none}.opsArchiveHead input:focus{border-color:#ff6671}.opsPager{justify-content:center;align-items:center;margin:14px 0}.opsPager span{padding:0 10px;color:#aebdca;font-size:11px}.opsTier{min-width:0}.opsTier b{display:block;font-size:12px;margin:8px 0}.opsTier small{line-height:1.5}.opsTier button:disabled{opacity:.5}@media(max-width:700px){.opsPass{grid-template-columns:repeat(2,minmax(0,1fr))}.opsPager button{padding:10px 12px}.opsArchiveHead .opsValue{font-size:22px}}</style></head><body><div id="game"></div><div id="hud"><div id="tacticalHud"><div id="mini"><svg viewBox="0 0 160 160"><path d="M15 18H145V145H15Z M15 78H145 M78 18V145 M35 18V55H65V90H15 M100 145V108H145 M78 55H120V18" fill="none" stroke="#b9d4df" stroke-width="7" opacity=".55"/><path d="M80 80L94 94" stroke="#67eaff" stroke-width="3"/><circle cx="80" cy="80" r="5" fill="#6deaff"/><circle cx="43" cy="44" r="4" fill="#f65d78"/><circle cx="120" cy="105" r="4" fill="#f65d78"/></svg></div><div id="squad"><div class="portrait">J</div><div class="portrait">V</div><div class="portrait">S</div><div class="portrait">K</div><div class="portrait">M</div></div><div id="feed"><div class="feedrow">ALLY  ▰  ENEMY</div><div class="feedrow">ALLY  ▰  ENEMY</div></div><div id="chat">[TEAM] JETT: A 지점으로 이동!<br>[TEAM] SAGE: 확인했습니다.<br>[TEAM] PHOENIX: 적 발견!</div><div id="abilities"><div class="abilityTile">◉<small>C</small></div><div class="abilityTile">➤<small>Q</small></div><div class="abilityTile">✦<small>E</small></div><div class="abilityTile">◇<small>X</small></div></div></div><div class="top"><div><div class="brand">TACTICAL FRONTLINE</div><div class="tag">COMBAT SIMULATION // LIVE</div></div><div class="box"><small>ELIMINATIONS</small><b id="kills">0</b></div><div class="box"><small>WAVE</small><b id="wave">1</b></div><div class="box"><small>HOSTILES</small><b id="hostiles">0</b></div></div><div id="notice">SECTOR 07 // SECURE THE AREA</div><div id="cross"></div><div id="bottom"><div class="health"><div class="label">VITALS <b id="hpnum">100</b> / ARMOR <b id="armor">50</b></div><div class="bar"><i id="hpbar"></i></div><div class="label" style="margin-top:7px">ABILITY <b id="energy">100</b>%</div><div class="bar"><i id="energybar" style="background:#b68cff"></i></div></div><div id="ammo"><div id="weaponName">VXR-9 ASSAULT</div><span id="mag">30</span><span style="font-size:14px;color:#89a2b3"> / <span id="reserve">180</span></span><small>MAGAZINE / RESERVE</small></div></div><div id="mobile"><div id="look"></div><div class="stick" id="stick"><div class="knob" id="knob"></div></div><button class="mb fire" id="fire">FIRE</button><button class="mb dash" id="dash">DASH</button><button class="mb reload" id="reload">RELOAD</button><button class="mb skill" id="skill">SKILL</button></div></div>
 <div id="referenceHUD"><div id="refNet" style="position:absolute;left:16px;top:8px;font-size:13px;font-weight:700;letter-spacing:.2px">FPS: 240&nbsp;&nbsp; 핑: 12ms</div>
 <div id="matchbar"><div class="teamfaces"><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i><i class="face"></i></div><div class="score">12</div><div class="clock">08:24</div><div class="score red">8</div><div class="teamfaces"><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i><i class="face red"></i></div></div>
 <div id="refFeed"><div class="refkill"><span>신신우</span><b class="weapon">▰➜</b><span>레이나</span></div><div class="refkill"><span>제트</span><b class="weapon">▰➜</b><span>소바</span></div><div class="refkill"><span>레이즈</span><b class="weapon">▰➜</b><span>브림스톤</span></div><div class="refkill"><span>오멘</span><b class="weapon">▰➜</b><span>제트</span></div></div>
@@ -293,6 +293,10 @@ body{font-family:Inter,Arial,sans-serif;background:#111}
   <button class="lnav" data-page="collection">▤　컬렉션</button>
   <button class="lnav" data-page="missions">◎　임무</button>
   <button class="lnav" data-page="career">▥　커리어</button>
+  <button class="lnav" data-page="friends">♧　친구</button>
+  <button class="lnav" data-page="battlepass">◇　시즌 패스</button>
+  <button class="lnav" data-page="mastery">⌁　숙련도</button>
+  <button class="lnav" data-page="operations">▤　작전 DB</button>
   <div id="lobbyProfile">PLAYER<br><b>신신우</b><br>레벨 01 · 비경쟁</div>
  </aside>
  <main id="lobbyMain">
@@ -649,7 +653,8 @@ addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updat
   settings:{kicker:'SYSTEM CONFIGURATION',title:'설정',cards:[['GRAPHICS','고화질 / 성능 우선 설정'],['AUDIO','효과음 및 인터페이스 사운드'],['CONTROLS','키보드 · 마우스 · 모바일 조작']]},
   friends:{kicker:'SOCIAL NETWORK',title:'친구 및 파티',cards:[['FRIENDS','친구 목록과 친구 추가'],['PARTY','파티 구성 및 초대 코드']]},
   battlepass:{kicker:'SEASON REWARDS',title:'시즌 패스',cards:[['FREE TRACK','전투 XP로 보상 티어 해금'],['SEASON STATUS','현재 시즌 진행도']]},
-  mastery:{kicker:'WEAPON PROGRAM',title:'무기 숙련도',cards:[['VXR-9 ASSAULT','사용 횟수와 숙련도'],['K-12 BURST','사용 횟수와 숙련도'],['M-88 MARKSMAN','사용 횟수와 숙련도']]}
+  mastery:{kicker:'WEAPON PROGRAM',title:'무기 숙련도',cards:[['VXR-9 ASSAULT','사용 횟수와 숙련도'],['K-12 BURST','사용 횟수와 숙련도'],['M-88 MARKSMAN','사용 횟수와 숙련도']]},
+  operations:{kicker:'10,000 PROCEDURAL CONTRACTS',title:'작전 데이터베이스',cards:[['TACTICAL CONTRACT INDEX','전투 기록 기반 10,000개 작전 목표 검색 및 보상 수령'],['PROGRESSION','제거 · 사격 · 전투 · 생존 기록에 따라 목표 해금'],['FIELD REWARDS','완료한 작전에서 크레딧 획득']]}
  };
  
  const opsStatsKey='tf_ops_stats_v1',dailyKey='tf_daily_ops_v1';
@@ -724,11 +729,49 @@ addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updat
   wasActive=active;
  },350);
 
+function renderOperations(){
+  const grid=feature.querySelector('.featureGrid');grid.className='';grid.innerHTML='';
+  const types=[
+   {field:'totalKills',name:'표적 제거',unit:'명',base:5},
+   {field:'totalShots',name:'탄약 소모',unit:'발',base:50},
+   {field:'matches',name:'전투 참가',unit:'회',base:1},
+   {field:'bestWave',name:'웨이브 도달',unit:'단계',base:2},
+   {field:'totalKills',name:'정밀 제거',unit:'명',base:10},
+   {field:'totalShots',name:'연속 사격',unit:'발',base:100},
+   {field:'matches',name:'작전 출격',unit:'회',base:3},
+   {field:'bestWave',name:'전선 유지',unit:'단계',base:4},
+   {field:'totalKills',name:'전장 정리',unit:'명',base:20},
+   {field:'totalShots',name:'사격 누적',unit:'발',base:250}
+  ];
+  const rankNames=['훈련','초급','숙련','정예','베테랑','전문가','엘리트','마스터','전설','최정예'];
+  const contracts=Array.from({length:10000},(_,n)=>{
+   const type=n%10,rank=Math.floor(n/10)%10,variant=Math.floor(n/100);
+   const t=types[type],target=t.base*(rank+1)+variant%7*t.base;
+   return {id:n+1,type,rank,variant,field:t.field,name:t.name+' · '+rankNames[rank]+' '+String(variant+1).padStart(3,'0'),desc:t.name+' 기록을 '+target+t.unit+' 달성하십시오.',target,unit:t.unit,reward:100+(rank+1)*35+(variant%20)*10};
+  });
+  const claimedKey='tf_contract_claimed_v1';
+  let claimed=readJSON(claimedKey,[]);
+  let pageNo=0,query='';
+  const pageSize=25;
+  const valueFor=c=>Number(opsStats[c.field]||0);
+  const safe=s=>escapeHTML(s);
+  const draw=()=>{
+   const filtered=contracts.filter(c=>!query||(c.name+' '+c.desc+' '+c.id).toLowerCase().includes(query.toLowerCase()));
+   const pagesCount=Math.max(1,Math.ceil(filtered.length/pageSize));pageNo=Math.min(pageNo,pagesCount-1);
+   const rows=filtered.slice(pageNo*pageSize,(pageNo+1)*pageSize);
+   grid.innerHTML='<div class="opsCard opsArchiveHead"><strong>10,000개의 절차 생성형 전술 계약</strong><p>계약은 계정 전투 통계에 연결됩니다. 완료한 계약은 한 번만 보상받을 수 있습니다.</p><div class="opsValue">'+filtered.length.toLocaleString()+' <small>검색 결과 / 10,000</small></div><input id="contractSearch" type="search" maxlength="60" placeholder="작전명 또는 번호 검색" value="'+safe(query)+'"></div><div class="opsPass">'+rows.map(c=>{const value=valueFor(c),done=value>=c.target,got=claimed.includes(c.id);return '<article class="opsTier"><span class="opsPill">#'+String(c.id).padStart(5,'0')+' · '+rankNames[c.rank]+'</span><b>'+safe(c.name)+'</b><small>'+safe(c.desc)+'</small><div class="opsTrack"><i style="width:'+Math.min(100,value/c.target*100)+'%"></i></div><small>'+value.toLocaleString()+' / '+c.target.toLocaleString()+' '+c.unit+' · ◈ '+c.reward+'</small><button data-contract="'+c.id+'" '+(!done||got?'disabled':'')+'>'+(got?'수령 완료':done?'보상 받기':'진행 중')+'</button></article>'}).join('')+'</div><div class="opsForm opsPager"><button id="contractPrev" '+(pageNo===0?'disabled':'')+'>이전</button><span>'+ (pageNo+1)+' / '+pagesCount+' 페이지</span><button id="contractNext" '+(pageNo>=pagesCount-1?'disabled':'')+'>다음</button></div>';
+   grid.querySelector('#contractSearch').addEventListener('input',e=>{query=e.target.value;pageNo=0;const pos=e.target.selectionStart;draw();const input=grid.querySelector('#contractSearch');input.focus();input.setSelectionRange(pos,pos);});
+   grid.querySelector('#contractPrev').onclick=()=>{pageNo--;draw();};
+   grid.querySelector('#contractNext').onclick=()=>{pageNo++;draw();};
+   grid.querySelectorAll('button[data-contract]').forEach(b=>b.onclick=()=>{const id=Number(b.dataset.contract),c=contracts[id-1];if(!c||claimed.includes(id)||valueFor(c)<c.target)return;claimed.push(id);localStorage.setItem(claimedKey,JSON.stringify(claimed));credits+=c.reward;saveEconomy();draw();});
+  };
+  draw();
+}
 function renderFeature(page){
   const p=pages[page];if(!p)return;
   home.style.display='none';document.getElementById('storePanel').style.display='none';feature.style.display='block';
   feature.innerHTML='<div class="featureHead"><div><div id="lobbyKicker">'+p.kicker+'</div><h2>'+p.title+'</h2></div><button id="featureBack">←　로비</button></div><div class="featureGrid">'+p.cards.map((c,i)=>'<article class="featureCard '+(page==='agents'&&i===0?'active':'')+'"><strong>'+c[0]+'</strong><p>'+c[1]+'</p><button data-feature="'+page+'" data-index="'+i+'">'+(page==='agents'?'선택하기':'상세 보기')+'</button></article>').join('')+'</div>';
-  if(page==='missions')renderMissions();if(page==='career')renderCareer();if(page==='friends')renderFriends();if(page==='battlepass')renderPass();if(page==='mastery')renderMastery();
+  if(page==='missions')renderMissions();if(page==='career')renderCareer();if(page==='friends')renderFriends();if(page==='battlepass')renderPass();if(page==='mastery')renderMastery();if(page==='operations')renderOperations();
   document.querySelectorAll('.lnav').forEach(b=>b.classList.toggle('on',b.dataset.page===page));
   feature.querySelector('#featureBack').onclick=()=>renderFeature('home');
   feature.querySelector('.featureGrid').onclick=e=>{
